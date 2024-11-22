@@ -93,4 +93,9 @@ C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\Yello
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(139,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(139,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(140,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(158,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(161,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(165,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(166,78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(237,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Sablon.vcxproj -> C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\x64\Debug\Sablon.exe

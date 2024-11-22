@@ -2,7 +2,9 @@
 
 out vec4 outCol;
 
+uniform float uPulse;
+
 void main()
 {
-	outCol = vec4(0.737254902, 0.0, 0.176470588, 1.0);
+	outCol = vec4(1.0, 1.0, uPulse, 1.0);
 }

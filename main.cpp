@@ -152,35 +152,30 @@ int main(void)
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    //Jap
-    /*
-    Generisanje tjemena kruga po jednacini za kruznicu, koju cemo crtati sa GL_TRIANGLE_FAN primitivom:
-    Trebace nam bar X i Y coordinate, posto je boja u fragment sejderu
-    Treba nam 2 * CRES brojeva za X i Y koordinate, gdje je CRES zapravo broj tjemena na kruznici (CRES 6 = sestougao)
-    Pored toga nam trebaju jos dva tjemena - centar i ponovljeno tjeme ugla 0 (da bi se krug pravilno zatvorio)
-    */
-    //float circle[(CRES + 2) * 2];
-    //float r = 0.5; //poluprecnik
+    float aspectRatio = (float)wWidth / wHeight;
 
-    //circle[0] = 0; //Centar X0
-    //circle[1] = 0; //Centar Y0
-    //int i;
-    //for (i = 0; i <= CRES; i++)
-    //{
-    //     
-    //    circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES)); //Xi (Matematicke funkcije rade sa radijanima)
-    //    circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)); //Yi
-    //}
+    float circle[(CRES + 2) * 2];
+    float r = 0.1;
 
-    //glBindVertexArray(VAO[1]);
-    //glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(circle), circle, GL_STATIC_DRAW);
-    //glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    circle[0] = 0.0; // Centar X
+    circle[1] = 0.8; // Centar Y
+
+    for (int i = 0; i <= CRES; i++)
+    {
+        circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES)) / aspectRatio; // Xi (podeljeno sa aspektnim odnosom)
+        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.8;     // Yi
+    }
+
+    glBindVertexArray(VAO[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(circle), circle, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     unsigned int uTransparency = glGetUniformLocation(windowShader, "uTransparency");
+    unsigned int uPulse = glGetUniformLocation(japShader, "uPulse");
     float transparency = 1.0;
 
     glEnable(GL_BLEND);
@@ -232,11 +227,18 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 44, 4);
-
-
-
         //glLineWidth(4.0);
         //GL_LINE_LOOP za linije
+
+        glUseProgram(japShader);
+        glBindVertexArray(VAO[1]);
+        float minScale = 0.3f; // Minimalna vrednost
+        float maxScale = 0.5f; // Maksimalna vrednost
+        float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
+        glUniform1f(uPulse, oscillation);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+        glUseProgram(0);
+        glBindVertexArray(0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
