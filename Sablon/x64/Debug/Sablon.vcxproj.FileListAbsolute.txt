@@ -1,0 +1,3 @@
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\V3Z2\x64\Debug\glew32.dll
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Projekat2D\x64\Debug\glew32.dll
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\x64\Debug\glew32.dll
