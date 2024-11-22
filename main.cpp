@@ -8,6 +8,7 @@
 
 #include <GL/glew.h>   
 #include <GLFW/glfw3.h>
+#include <vector>
 
 unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
@@ -47,11 +48,13 @@ int main(void)
     unsigned int srbShader = createShader("basic.vert", "srb.frag");
     unsigned int windowShader = createShader("basic.vert", "window.frag");
     unsigned int japShader = createShader("basic.vert", "jap.frag");
+    unsigned int fenceShader = createShader("basic.vert", "fence.frag");
 
-    unsigned int VAO[2]; 
-    glGenVertexArrays(2, VAO);
-    unsigned int VBO[2];
-    glGenBuffers(2, VBO);
+
+    unsigned int VAO[3]; 
+    glGenVertexArrays(3, VAO);
+    unsigned int VBO[3];
+    glGenBuffers(3, VBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -138,9 +141,43 @@ int main(void)
          0.20, 0.30,   rr, rg, rb,
          0.80, 0.30,   rr, rg, rb,
          0.50, 0.70,   rr, rg, rb,
-
     };
 
+    float fence[1000] = {
+       -1.0, -0.75,
+        1.0, -0.75,
+       -1.0, -0.7,
+        1.0, -0.7,
+    };
+    /*fence[0] = -1.0;
+    fence[1] = -0.75;
+    fence[2] = 1.0;
+    fence[3] = -0.75;
+    fence[4] = -1.0;
+    fence[5] = -0.7;
+    fence[6] = 1.0;
+    fence[7] = -0.7;*/
+
+    int i = 8;
+    float x = -0.98;
+    while (x < 1.0) {
+        fence[i] = x;
+        fence[i+1] = -1.0;
+
+        fence[i+2] = x;    
+        fence[i+3] = - 0.65;
+
+        x += 0.03;
+
+        fence[i+4] = x;       
+        fence[i+5] = -1.0;
+
+        fence[i+6] = x;
+        fence[i+7] = -0.65;
+
+        x += 0.03;
+        i += 8;
+    }
 
 
     glBindVertexArray(VAO[0]);
@@ -171,6 +208,13 @@ int main(void)
     glBufferData(GL_ARRAY_BUFFER, sizeof(circle), circle, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    glBindVertexArray(VAO[2]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(fence), fence, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -203,7 +247,7 @@ int main(void)
             transparency = 1.0f;  // Neporvidno staklo
         }
 
-
+        
         glBindVertexArray(VAO[0]);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
@@ -216,6 +260,7 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 48, 3);
 
 
+        
 
 
         glUseProgram(windowShader);
@@ -237,6 +282,48 @@ int main(void)
         float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
         glUniform1f(uPulse, oscillation);
         glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+
+        glUseProgram(fenceShader);
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 40, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 44, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 48, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 52, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 56, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 60, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 64, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 68, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 72, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 76, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 80, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 84, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 88, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 92, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 96, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 100, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 104, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 108, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 112, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 116, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 120, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 124, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 128, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 132, 4);
+
+
+
+
         glUseProgram(0);
         glBindVertexArray(0);
 
@@ -252,6 +339,14 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+//void drawFence() {
+//    int i = 0;
+//    while (i < 20) {
+//        glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
+//        i++;
+//    }
+//}
 
 unsigned int compileShader(GLenum type, const char* source)
 {
