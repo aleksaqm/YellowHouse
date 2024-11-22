@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #define CRES 30 // Circle Resolution = Rezolucija kruga
 
@@ -45,6 +45,7 @@ int main(void)
         return 3;
     }
     unsigned int srbShader = createShader("basic.vert", "srb.frag");
+    unsigned int windowShader = createShader("basic.vert", "window.frag");
     unsigned int japShader = createShader("basic.vert", "jap.frag");
 
     unsigned int VAO[2]; 
@@ -68,6 +69,10 @@ int main(void)
     float bwg = 38 / 255.0;
     float bwb = 14 / 255.0;
 
+    float rr = 174 / 255.0;
+    float rg = 44 / 255.0;
+    float rb = 35 / 255.0;
+
     float vertices[] =
     {
          -1.0, 0.25,    br, bg, bb,
@@ -82,8 +87,8 @@ int main(void)
 
          0.25, -0.60,   yr, yg, yb,
          0.75, -0.60,   yr, yg, yb,
-         0.25, 0.40,    yr, yg, yb,
-         0.75, 0.40,    yr, yg, yb,
+         0.25, 0.30,    yr, yg, yb,
+         0.75, 0.30,    yr, yg, yb,
 
          0.44, -0.60,   bwr, bwg, bwb,
          0.56, -0.60,   bwr, bwg, bwb,
@@ -99,6 +104,40 @@ int main(void)
          0.41, -0.27,   1, 1, 1,
          0.29, -0.09,   1, 1, 1,
          0.41, -0.09,   1, 1, 1,
+
+         0.58, -0.28,   0, 0, 0,
+         0.72, -0.28,   0, 0, 0,
+         0.58, -0.08,   0, 0, 0,
+         0.72, -0.08,   0, 0, 0,
+
+         0.59, -0.27,   1, 1, 1,
+         0.71, -0.27,   1, 1, 1,
+         0.59, -0.09,   1, 1, 1,
+         0.71, -0.09,   1, 1, 1,
+
+         0.28, 0.02,   0, 0, 0,
+         0.42, 0.02,   0, 0, 0,
+         0.28, 0.22,   0, 0, 0,
+         0.42, 0.22,   0, 0, 0,
+
+         0.29, 0.03,   1, 1, 1,
+         0.41, 0.03,   1, 1, 1,
+         0.29, 0.21,   1, 1, 1,
+         0.41, 0.21,   1, 1, 1,
+
+         0.58, 0.02,   0, 0, 0,
+         0.72, 0.02,   0, 0, 0,
+         0.58, 0.22,   0, 0, 0,
+         0.72, 0.22,   0, 0, 0,
+
+         0.59, 0.03,   1, 1, 1,
+         0.71, 0.03,   1, 1, 1,
+         0.59, 0.21,   1, 1, 1,
+         0.71, 0.21,   1, 1, 1,
+
+         0.20, 0.30,   rr, rg, rb,
+         0.80, 0.30,   rr, rg, rb,
+         0.50, 0.70,   rr, rg, rb,
 
     };
 
@@ -141,7 +180,7 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    unsigned int uTransparency = glGetUniformLocation(srbShader, "uTransparency");
+    unsigned int uTransparency = glGetUniformLocation(windowShader, "uTransparency");
     float transparency = 1.0;
 
     glEnable(GL_BLEND);
@@ -160,8 +199,7 @@ int main(void)
 
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
         {
-            transparency = 0.0;  // Poluprovidno staklo
-            std::cout << "Postavio na 0.5\n";
+            transparency = 0.5;  // Poluprovidno staklo
         }
 
         // Ako je pritisnuto taster N, postavi providnost na 1.0f
@@ -170,7 +208,6 @@ int main(void)
             transparency = 1.0f;  // Neporvidno staklo
         }
 
-        glUniform1f(uTransparency, transparency);
 
         glBindVertexArray(VAO[0]);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -178,7 +215,24 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 40, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 48, 3);
+
+
+
+
+        glUseProgram(windowShader);
+
+        glBindVertexArray(VAO[0]);
+        glUniform1f(uTransparency, transparency);
+
         glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 44, 4);
+
 
 
         //glLineWidth(4.0);
