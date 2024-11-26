@@ -5,9 +5,10 @@ layout(location = 1) in vec2 inTex; //Koordinate texture, propustamo ih u FS kao
 out vec2 chTex;
 
 uniform float uXpos;
+uniform float uFlip; // 1.0 za normalno, -1.0 za horizontalno preslikano
 
 void main()
 {
 	gl_Position = vec4(inPos.x + uXpos, inPos.y, 0.0, 1.0);
-	chTex = inTex;
+	chTex = vec2(inTex.x * uFlip, inTex.y);
 }

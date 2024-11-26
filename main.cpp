@@ -20,11 +20,12 @@ void bindTexture(unsigned int shader, unsigned texture);
 void fillDogVAO();
 void fillTreeVAO();
 void fillFenceVAO();
+void fillWindowVAO();
 
 
 
-unsigned int VAO[5];
-unsigned int VBO[5];
+unsigned int VAO[6];
+unsigned int VBO[6];
 
 
 
@@ -68,8 +69,8 @@ int main(void)
     unsigned int dogShader = createShader("moving.vert", "tree.frag");
 
 
-    glGenVertexArrays(5, VAO);
-    glGenBuffers(5, VBO);
+    glGenVertexArrays(6, VAO);
+    glGenBuffers(6, VBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -118,46 +119,27 @@ int main(void)
          0.28, -0.08,   0, 0, 0,
          0.42, -0.08,   0, 0, 0,
 
-         0.29, -0.27,   1, 1, 1,
-         0.41, -0.27,   1, 1, 1,
-         0.29, -0.09,   1, 1, 1,
-         0.41, -0.09,   1, 1, 1,
-
          0.58, -0.28,   0, 0, 0,
          0.72, -0.28,   0, 0, 0,
          0.58, -0.08,   0, 0, 0,
          0.72, -0.08,   0, 0, 0,
-
-         0.59, -0.27,   1, 1, 1,
-         0.71, -0.27,   1, 1, 1,
-         0.59, -0.09,   1, 1, 1,
-         0.71, -0.09,   1, 1, 1,
 
          0.28, 0.02,   0, 0, 0,
          0.42, 0.02,   0, 0, 0,
          0.28, 0.22,   0, 0, 0,
          0.42, 0.22,   0, 0, 0,
 
-         0.29, 0.03,   1, 1, 1,
-         0.41, 0.03,   1, 1, 1,
-         0.29, 0.21,   1, 1, 1,
-         0.41, 0.21,   1, 1, 1,
-
          0.58, 0.02,   0, 0, 0,
          0.72, 0.02,   0, 0, 0,
          0.58, 0.22,   0, 0, 0,
          0.72, 0.22,   0, 0, 0,
-
-         0.59, 0.03,   1, 1, 1,
-         0.71, 0.03,   1, 1, 1,
-         0.59, 0.21,   1, 1, 1,
-         0.71, 0.21,   1, 1, 1,
 
          0.20, 0.30,   rr, rg, rb,
          0.80, 0.30,   rr, rg, rb,
          0.50, 0.70,   rr, rg, rb,
     };
 
+    
 
 
     glBindVertexArray(VAO[0]);
@@ -169,6 +151,8 @@ int main(void)
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
+    
+
     float aspectRatio = (float)wWidth / wHeight;
 
     float circle[(CRES + 2) * 2];
@@ -179,8 +163,8 @@ int main(void)
 
     for (int i = 0; i <= CRES; i++)
     {
-        circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES)) / aspectRatio; // Xi (podeljeno sa aspektnim odnosom)
-        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.8;     // Yi
+        circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES)) / aspectRatio;
+        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.8;
     }
 
     glBindVertexArray(VAO[1]);
@@ -189,6 +173,7 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
+    fillWindowVAO();
     fillFenceVAO();
     fillTreeVAO();
     fillDogVAO();
@@ -197,19 +182,26 @@ int main(void)
     glBindVertexArray(0);
 
     //Tekstura
-    unsigned treeTexture = loadImageToTexture("res/sljiva.png"); //Ucitavamo teksturu
+    unsigned treeTexture = loadImageToTexture("res/sljiva.png");
     bindTexture(treeShader, treeTexture);
 
-    unsigned dogTexture = loadImageToTexture("res/balrog.png"); //Ucitavamo teksturu
+    unsigned dogTexture = loadImageToTexture("res/balrog.png");
     bindTexture(dogShader, dogTexture);
 
+    //Uniforme
     unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
+    unsigned int uFlip = glGetUniformLocation(dogShader, "uFlip");
+
+    unsigned int uWhiteLevel = glGetUniformLocation(treeShader, "uWhiteLevel");
 
     unsigned int uTransparency = glGetUniformLocation(windowShader, "uTransparency");
     unsigned int uPulse = glGetUniformLocation(japShader, "uPulse");
     float transparency = 1.0;
 
     float x_move = 0;
+    float flip = 1.0;
+
+    float whiteLevel = 0;
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -233,18 +225,30 @@ int main(void)
         {
             transparency = 1.0f;  // Neporvidno staklo
         }
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        {
+            whiteLevel += 0.0001f; // Povećaj nivo krečenja
+            if (whiteLevel > 0.38f) whiteLevel = 0.38f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        {
+            whiteLevel -= 0.0001f; // Smanji nivo krečenja
+            if (whiteLevel < 0.0f) whiteLevel = 0.0f; // Ograniči ispod stabla
+        }
 
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
             x_move += 0.0001;
             if (x_move > 0.6)
                 x_move = 0.6;
+            flip = -1.0;
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
             x_move -= 0.0001;
             if (x_move < -0.45)
                 x_move = -0.45;
+            flip = 1.0;
         }
 
 
@@ -254,21 +258,21 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 40, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 48, 3);
+        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
 
 
         glUseProgram(windowShader);
 
-        glBindVertexArray(VAO[0]);
+        glBindVertexArray(VAO[5]);
         glUniform1f(uTransparency, transparency);
 
-        glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 44, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
         //glLineWidth(4.0);
         //GL_LINE_LOOP za linije
 
@@ -291,6 +295,7 @@ int main(void)
 
         glUseProgram(treeShader);
         glBindVertexArray(VAO[3]);
+        glUniform1f(uWhiteLevel, whiteLevel);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, treeTexture);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -298,6 +303,8 @@ int main(void)
 
         glUseProgram(dogShader);
         glUniform1f(uXpos, x_move);
+        glUniform1f(uFlip, flip);
+
         glBindVertexArray(VAO[4]);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, dogTexture);
@@ -320,6 +327,42 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+
+void fillWindowVAO() {
+    float window_vertices[] =
+    {
+         0.29, -0.27,   1, 1, 1,
+         0.41, -0.27,   1, 1, 1,
+         0.29, -0.09,   1, 1, 1,
+         0.41, -0.09,   1, 1, 1,
+
+         0.59, -0.27,   1, 1, 1,
+         0.71, -0.27,   1, 1, 1,
+         0.59, -0.09,   1, 1, 1,
+         0.71, -0.09,   1, 1, 1,
+
+         0.29, 0.03,    1, 1, 1,
+         0.41, 0.03,    1, 1, 1,
+         0.29, 0.21,    1, 1, 1,
+         0.41, 0.21,    1, 1, 1,
+
+         0.59, 0.03,    1, 1, 1,
+         0.71, 0.03,    1, 1, 1,
+         0.59, 0.21,    1, 1, 1,
+         0.71, 0.21,    1, 1, 1,
+    };
+
+    glBindVertexArray(VAO[5]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[5]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(window_vertices), window_vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+}
+
 
 void fillFenceVAO() {
     float fence[1000] = {
