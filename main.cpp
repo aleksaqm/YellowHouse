@@ -16,6 +16,7 @@
 unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
 static unsigned loadImageToTexture(const char* filePath);
+void bindTexture(unsigned int shader, unsigned texture);
 
 
 int main(void)
@@ -55,13 +56,15 @@ int main(void)
     unsigned int japShader = createShader("basic.vert", "jap.frag");
     unsigned int fenceShader = createShader("basic.vert", "fence.frag");
     unsigned int treeShader = createShader("tex.vert", "tree.frag");
+    unsigned int dogShader = createShader("moving.vert", "tree.frag");
 
 
 
-    unsigned int VAO[4];
-    glGenVertexArrays(4, VAO);
-    unsigned int VBO[4];
-    glGenBuffers(4, VBO);
+
+    unsigned int VAO[5];
+    glGenVertexArrays(5, VAO);
+    unsigned int VBO[5];
+    glGenBuffers(5, VBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -185,6 +188,14 @@ int main(void)
         - 1.0, -0.35,       1.0, 0.0, //dole desno
     };
 
+    float dog_vertices[] =
+    {   //X    Y        S    T 
+        -0.35, -0.07,        1.0, 1.0,//gore desno
+        -0.55, -0.07,        0.0, 1.0, //gore levo
+        -0.35, -0.53,       1.0, 0.0, //dole desno
+        -0.55, -0.53,       0.0, 0.0, //dole levo
+    };
+
 
     glBindVertexArray(VAO[0]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
@@ -229,23 +240,31 @@ int main(void)
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
+    glBindVertexArray(VAO[4]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[4]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(dog_vertices), dog_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     //Tekstura
-    unsigned checkerTexture = loadImageToTexture("res/sljiva.png"); //Ucitavamo teksturu
-    glBindTexture(GL_TEXTURE_2D, checkerTexture); //Podesavamo teksturu
-    glGenerateMipmap(GL_TEXTURE_2D); //Generisemo mipmape 
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glUseProgram(treeShader);
-    unsigned uTexLoc = glGetUniformLocation(treeShader, "uTex");
-    glUniform1i(uTexLoc, 0); // Indeks teksturne jedinice (sa koje teksture ce se citati boje)
-    glUseProgram(0);
+    unsigned treeTexture = loadImageToTexture("res/sljiva.png"); //Ucitavamo teksturu
+    bindTexture(treeShader, treeTexture);
+
+    unsigned dogTexture = loadImageToTexture("res/balrog.png"); //Ucitavamo teksturu
+    bindTexture(dogShader, dogTexture);
+
+    unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
 
     unsigned int uTransparency = glGetUniformLocation(windowShader, "uTransparency");
     unsigned int uPulse = glGetUniformLocation(japShader, "uPulse");
     float transparency = 1.0;
+
+    float x_move = 0;
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -268,6 +287,19 @@ int main(void)
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
         {
             transparency = 1.0f;  // Neporvidno staklo
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        {
+            x_move += 0.0001;
+            if (x_move > 0.6)
+                x_move = 0.6;
+        }
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        {
+            x_move -= 0.0001;
+            if (x_move < -0.45)
+                x_move = -0.45;
         }
 
 
@@ -315,7 +347,15 @@ int main(void)
         glUseProgram(treeShader);
         glBindVertexArray(VAO[3]);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, checkerTexture);
+        glBindTexture(GL_TEXTURE_2D, treeTexture);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        glUseProgram(dogShader);
+        glUniform1f(uXpos, x_move);
+        glBindVertexArray(VAO[4]);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, dogTexture);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -343,6 +383,17 @@ void drawFence() {
         i++;
     }
 }
+
+void bindTexture(unsigned int shader, unsigned texture) {
+    glBindTexture(GL_TEXTURE_2D, texture); //Podesavamo teksturu
+    glGenerateMipmap(GL_TEXTURE_2D); //Generisemo mipmape 
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glUseProgram(texture);
+    unsigned uTexLoc2 = glGetUniformLocation(shader, "uTex");
+    glUniform1i(uTexLoc2, 0); // Indeks teksturne jedinice (sa koje teksture ce se citati boje)
+    glUseProgram(0);
+}
+
 
 unsigned int compileShader(GLenum type, const char* source)
 {
