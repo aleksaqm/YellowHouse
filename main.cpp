@@ -13,6 +13,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+GLFWcursor* boneCursor = nullptr;
+
 unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
 static unsigned loadImageToTexture(const char* filePath);
@@ -21,7 +23,7 @@ void fillDogVAO();
 void fillTreeVAO();
 void fillFenceVAO();
 void fillWindowVAO();
-
+void setupBoneCursor(GLFWwindow* window);
 
 
 unsigned int VAO[6];
@@ -53,6 +55,7 @@ int main(void)
         glfwTerminate();
         return 2;
     }
+    setupBoneCursor(window);
 
     glfwMakeContextCurrent(window);
 
@@ -579,5 +582,25 @@ static unsigned loadImageToTexture(const char* filePath) {
         std::cout << "Textura nije ucitana! Putanja texture: " << filePath << std::endl;
         stbi_image_free(ImageData);
         return 0;
+    }
+}
+
+void setupBoneCursor(GLFWwindow* window) {
+    int width, height, channels;
+    unsigned char* data = stbi_load("res/bone.png", &width, &height, &channels, 4); // učitaj sliku kosti
+
+    if (data) {
+        GLFWimage cursorImage;
+        cursorImage.width = width;
+        cursorImage.height = height;
+        cursorImage.pixels = data;
+
+        boneCursor = glfwCreateCursor(&cursorImage, 0, 0); // postavi gornji levi ugao slike kao žarišnu tačku
+        glfwSetCursor(window, boneCursor);
+
+        stbi_image_free(data);
+    }
+    else {
+        std::cerr << "Failed to load cursor image!" << std::endl;
     }
 }
