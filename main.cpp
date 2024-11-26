@@ -23,6 +23,7 @@ void fillDogVAO();
 void fillTreeVAO();
 void fillFenceVAO();
 void fillWindowVAO();
+void fillRoomVAO();
 void setupBoneCursor(GLFWwindow* window);
 bool isMouseOverGrass(double mouseX, double mouseY);
 void mouseClickCallback(GLFWwindow* window, int button, int action, int mods);
@@ -41,7 +42,8 @@ unsigned int dogVAO;
 unsigned int dogVBO;
 unsigned int windowVAO;
 unsigned int windowVBO;
-
+unsigned int roomVAO;
+unsigned int roomVBO;
 
 
 
@@ -88,6 +90,8 @@ int main(void)
     unsigned int fenceShader = createShader("basic.vert", "fence.frag");
     unsigned int treeShader = createShader("tex.vert", "tree.frag");
     unsigned int dogShader = createShader("moving.vert", "tree.frag");
+    unsigned int roomShader = createShader("tex.vert", "tree.frag");
+
 
 
     glGenVertexArrays(1, &bigVAO);
@@ -102,6 +106,8 @@ int main(void)
     glGenBuffers(1, &dogVBO);
     glGenVertexArrays(1, &windowVAO);
     glGenBuffers(1, &windowVBO);
+    glGenVertexArrays(1, &roomVAO);
+    glGenBuffers(1, &roomVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -208,6 +214,7 @@ int main(void)
     fillFenceVAO();
     fillTreeVAO();
     fillDogVAO();
+    fillRoomVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -218,6 +225,9 @@ int main(void)
 
     unsigned dogTexture = loadImageToTexture("res/balrog.png");
     bindTexture(dogShader, dogTexture);
+
+    //neki lik za sobu
+    bindTexture(roomShader, dogTexture);
 
     //Uniforme
     unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
@@ -249,7 +259,7 @@ int main(void)
 
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
         {
-            transparency = 0.5;  // Poluprovidno staklo
+            transparency = 0.3;  // Poluprovidno staklo
         }
 
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
@@ -293,6 +303,13 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
+
+        glUseProgram(roomShader);
+        glBindVertexArray(roomVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, dogTexture);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
 
         glUseProgram(windowShader);
@@ -407,6 +424,25 @@ void fillWindowVAO() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+}
+
+void fillRoomVAO() {
+    float room_vertices[] =
+    {
+         0.29, 0.03,   0.0, 0.0,
+         0.41, 0.03,   1.0, 0.0,
+         0.29, 0.21,   0.0, 1.0,
+         0.41, 0.21,   1.0, 1.0,
+    };
+
+    glBindVertexArray(roomVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, roomVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(room_vertices), room_vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 }
 
