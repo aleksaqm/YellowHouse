@@ -17,6 +17,15 @@ unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
 static unsigned loadImageToTexture(const char* filePath);
 void bindTexture(unsigned int shader, unsigned texture);
+void fillDogVAO();
+void fillTreeVAO();
+void fillFenceVAO();
+
+
+
+unsigned int VAO[5];
+unsigned int VBO[5];
+
 
 
 int main(void)
@@ -59,11 +68,7 @@ int main(void)
     unsigned int dogShader = createShader("moving.vert", "tree.frag");
 
 
-
-
-    unsigned int VAO[5];
     glGenVertexArrays(5, VAO);
-    unsigned int VBO[5];
     glGenBuffers(5, VBO);
 
     float gr = 0 / 255.0;
@@ -153,48 +158,6 @@ int main(void)
          0.50, 0.70,   rr, rg, rb,
     };
 
-    float fence[1000] = {
-       -1.0, -0.75,
-        1.0, -0.75,
-       -1.0, -0.7,
-        1.0, -0.7,
-    };
-    int i = 8;
-    float x = -0.98;
-    while (x < 1.0) {
-        fence[i] = x;
-        fence[i + 1] = -1.0;
-
-        fence[i + 2] = x;
-        fence[i + 3] = -0.65;
-
-        x += 0.03;
-
-        fence[i + 4] = x;
-        fence[i + 5] = -1.0;
-
-        fence[i + 6] = x;
-        fence[i + 7] = -0.65;
-
-        x += 0.03;
-        i += 8;
-    }
-
-    float tree_vertices[] =
-    {   //X    Y        S    T 
-        -0.35, 0.6,         0.0, 1.0,//gore levo
-        -1.0, 0.6,          1.0, 1.0, //gore desno
-        -0.35, -0.35,       0.0, 0.0, //dole levo
-        - 1.0, -0.35,       1.0, 0.0, //dole desno
-    };
-
-    float dog_vertices[] =
-    {   //X    Y        S    T 
-        -0.35, -0.07,        1.0, 1.0,//gore desno
-        -0.55, -0.07,        0.0, 1.0, //gore levo
-        -0.35, -0.53,       1.0, 0.0, //dole desno
-        -0.55, -0.53,       0.0, 0.0, //dole levo
-    };
 
 
     glBindVertexArray(VAO[0]);
@@ -226,27 +189,9 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glBindVertexArray(VAO[2]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(fence), fence, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindVertexArray(VAO[3]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(tree_vertices), tree_vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glBindVertexArray(VAO[4]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[4]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(dog_vertices), dog_vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    fillFenceVAO();
+    fillTreeVAO();
+    fillDogVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -376,12 +321,74 @@ int main(void)
     return 0;
 }
 
-void drawFence() {
-    int i = 0;
-    while (i < 20) {
-        glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
-        i++;
+void fillFenceVAO() {
+    float fence[1000] = {
+       -1.0, -0.75,
+        1.0, -0.75,
+       -1.0, -0.7,
+        1.0, -0.7,
+    };
+    int i = 8;
+    float x = -0.98;
+    while (x < 1.0) {
+        fence[i] = x;
+        fence[i + 1] = -1.0;
+
+        fence[i + 2] = x;
+        fence[i + 3] = -0.65;
+
+        x += 0.03;
+
+        fence[i + 4] = x;
+        fence[i + 5] = -1.0;
+
+        fence[i + 6] = x;
+        fence[i + 7] = -0.65;
+
+        x += 0.03;
+        i += 8;
     }
+    glBindVertexArray(VAO[2]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(fence), fence, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+}
+
+void fillTreeVAO() {
+    float tree_vertices[] =
+    {   //X    Y        S    T 
+        -0.35, 0.6,         0.0, 1.0,//gore levo
+        -1.0, 0.6,          1.0, 1.0, //gore desno
+        -0.35, -0.35,       0.0, 0.0, //dole levo
+        -1.0, -0.35,       1.0, 0.0, //dole desno
+    };
+    glBindVertexArray(VAO[3]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(tree_vertices), tree_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+}
+
+void fillDogVAO() {
+    float dog_vertices[] =
+    {   //X    Y        S    T 
+        -0.35, -0.07,        1.0, 1.0,//gore desno
+        -0.55, -0.07,        0.0, 1.0, //gore levo
+        -0.35, -0.53,       1.0, 0.0, //dole desno
+        -0.55, -0.53,       0.0, 0.0, //dole levo
+    };
+
+    glBindVertexArray(VAO[4]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[4]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(dog_vertices), dog_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 }
 
 void bindTexture(unsigned int shader, unsigned texture) {
@@ -393,6 +400,27 @@ void bindTexture(unsigned int shader, unsigned texture) {
     glUniform1i(uTexLoc2, 0); // Indeks teksturne jedinice (sa koje teksture ce se citati boje)
     glUseProgram(0);
 }
+
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+//####################################################################################################################################
+
 
 
 unsigned int compileShader(GLenum type, const char* source)
