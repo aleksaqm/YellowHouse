@@ -10,8 +10,13 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
+static unsigned loadImageToTexture(const char* filePath);
+
 
 int main(void)
 {
@@ -49,12 +54,14 @@ int main(void)
     unsigned int windowShader = createShader("basic.vert", "window.frag");
     unsigned int japShader = createShader("basic.vert", "jap.frag");
     unsigned int fenceShader = createShader("basic.vert", "fence.frag");
+    unsigned int treeShader = createShader("tex.vert", "tree.frag");
 
 
-    unsigned int VAO[3]; 
-    glGenVertexArrays(3, VAO);
-    unsigned int VBO[3];
-    glGenBuffers(3, VBO);
+
+    unsigned int VAO[4];
+    glGenVertexArrays(4, VAO);
+    unsigned int VBO[4];
+    glGenBuffers(4, VBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -153,22 +160,30 @@ int main(void)
     float x = -0.98;
     while (x < 1.0) {
         fence[i] = x;
-        fence[i+1] = -1.0;
+        fence[i + 1] = -1.0;
 
-        fence[i+2] = x;    
-        fence[i+3] = - 0.65;
+        fence[i + 2] = x;
+        fence[i + 3] = -0.65;
 
         x += 0.03;
 
-        fence[i+4] = x;       
-        fence[i+5] = -1.0;
+        fence[i + 4] = x;
+        fence[i + 5] = -1.0;
 
-        fence[i+6] = x;
-        fence[i+7] = -0.65;
+        fence[i + 6] = x;
+        fence[i + 7] = -0.65;
 
         x += 0.03;
         i += 8;
     }
+
+    float tree_vertices[] =
+    {   //X    Y        S    T 
+        -0.35, 0.6,         0.0, 1.0,//gore levo
+        -1.0, 0.6,          1.0, 1.0, //gore desno
+        -0.35, -0.35,       0.0, 0.0, //dole levo
+        - 1.0, -0.35,       1.0, 0.0, //dole desno
+    };
 
 
     glBindVertexArray(VAO[0]);
@@ -206,8 +221,27 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
+    glBindVertexArray(VAO[3]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(tree_vertices), tree_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+    //Tekstura
+    unsigned checkerTexture = loadImageToTexture("res/sljiva.png"); //Ucitavamo teksturu
+    glBindTexture(GL_TEXTURE_2D, checkerTexture); //Podesavamo teksturu
+    glGenerateMipmap(GL_TEXTURE_2D); //Generisemo mipmape 
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glUseProgram(treeShader);
+    unsigned uTexLoc = glGetUniformLocation(treeShader, "uTex");
+    glUniform1i(uTexLoc, 0); // Indeks teksturne jedinice (sa koje teksture ce se citati boje)
+    glUseProgram(0);
 
     unsigned int uTransparency = glGetUniformLocation(windowShader, "uTransparency");
     unsigned int uPulse = glGetUniformLocation(japShader, "uPulse");
@@ -236,7 +270,7 @@ int main(void)
             transparency = 1.0f;  // Neporvidno staklo
         }
 
-        
+
         glBindVertexArray(VAO[0]);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
@@ -277,6 +311,14 @@ int main(void)
             glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
             i++;
         }
+
+        glUseProgram(treeShader);
+        glBindVertexArray(VAO[3]);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, checkerTexture);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
 
         glUseProgram(0);
         glBindVertexArray(0);
@@ -379,4 +421,41 @@ unsigned int createShader(const char* vsSource, const char* fsSource)
     glDeleteShader(fragmentShader);
 
     return program;
+}
+
+static unsigned loadImageToTexture(const char* filePath) {
+    int TextureWidth;
+    int TextureHeight;
+    int TextureChannels;
+    unsigned char* ImageData = stbi_load(filePath, &TextureWidth, &TextureHeight, &TextureChannels, 0);
+    if (ImageData != NULL)
+    {
+        //Slike se osnovno ucitavaju naopako pa se moraju ispraviti da budu uspravne
+        stbi__vertical_flip(ImageData, TextureWidth, TextureHeight, TextureChannels);
+
+        // Provjerava koji je format boja ucitane slike
+        GLint InternalFormat = -1;
+        switch (TextureChannels) {
+        case 1: InternalFormat = GL_RED; break;
+        case 2: InternalFormat = GL_RG; break;
+        case 3: InternalFormat = GL_RGB; break;
+        case 4: InternalFormat = GL_RGBA; break;
+        default: InternalFormat = GL_RGB; break;
+        }
+
+        unsigned int Texture;
+        glGenTextures(1, &Texture);
+        glBindTexture(GL_TEXTURE_2D, Texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, InternalFormat, TextureWidth, TextureHeight, 0, InternalFormat, GL_UNSIGNED_BYTE, ImageData);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        // oslobadjanje memorije zauzete sa stbi_load posto vise nije potrebna
+        stbi_image_free(ImageData);
+        return Texture;
+    }
+    else
+    {
+        std::cout << "Textura nije ucitana! Putanja texture: " << filePath << std::endl;
+        stbi_image_free(ImageData);
+        return 0;
+    }
 }
