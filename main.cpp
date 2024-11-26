@@ -149,15 +149,6 @@ int main(void)
        -1.0, -0.7,
         1.0, -0.7,
     };
-    /*fence[0] = -1.0;
-    fence[1] = -0.75;
-    fence[2] = 1.0;
-    fence[3] = -0.75;
-    fence[4] = -1.0;
-    fence[5] = -0.7;
-    fence[6] = 1.0;
-    fence[7] = -0.7;*/
-
     int i = 8;
     float x = -0.98;
     while (x < 1.0) {
@@ -233,7 +224,6 @@ int main(void)
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //glViewport(0, 0, wWidth / 2, wHeight); // Da crtamo na lijevoj polovini ekrana
         glUseProgram(srbShader);
 
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
@@ -241,7 +231,6 @@ int main(void)
             transparency = 0.5;  // Poluprovidno staklo
         }
 
-        // Ako je pritisnuto taster N, postavi providnost na 1.0f
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
         {
             transparency = 1.0f;  // Neporvidno staklo
@@ -258,9 +247,6 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 40, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 48, 3);
-
-
-        
 
 
         glUseProgram(windowShader);
@@ -286,43 +272,11 @@ int main(void)
 
         glUseProgram(fenceShader);
         glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 32, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 40, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 44, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 48, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 52, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 56, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 60, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 64, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 68, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 72, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 76, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 80, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 84, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 88, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 92, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 96, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 100, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 104, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 108, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 112, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 116, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 120, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 124, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 128, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 132, 4);
-
-
-
+        int i = 0;
+        while (i < 34) {
+            glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
+            i++;
+        }
 
         glUseProgram(0);
         glBindVertexArray(0);
@@ -340,13 +294,13 @@ int main(void)
     return 0;
 }
 
-//void drawFence() {
-//    int i = 0;
-//    while (i < 20) {
-//        glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
-//        i++;
-//    }
-//}
+void drawFence() {
+    int i = 0;
+    while (i < 20) {
+        glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
+        i++;
+    }
+}
 
 unsigned int compileShader(GLenum type, const char* source)
 {
