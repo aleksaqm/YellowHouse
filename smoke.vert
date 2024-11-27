@@ -1,9 +1,12 @@
 #version 330 core
 
 layout(location = 0) in vec2 aPos;
+
 uniform float uTime;
 uniform vec2 uStartPosition;
 uniform float uParticleLife;
+
+out vec2 fragCoord;
 
 void main()
 {
@@ -20,4 +23,5 @@ void main()
     transformedPos += uStartPosition;
 
     gl_Position = vec4(transformedPos, 0.0, 1.0);
+    fragCoord = aPos;
 }
