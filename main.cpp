@@ -9,6 +9,7 @@
 #include <GL/glew.h>   
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <string.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -24,6 +25,8 @@ void fillTreeVAO();
 void fillFenceVAO();
 void fillWindowVAO();
 void fillRoomVAO();
+void fillNameVAO();
+
 void setupBoneCursor(GLFWwindow* window);
 bool isMouseOverGrass(double mouseX, double mouseY);
 void mouseClickCallback(GLFWwindow* window, int button, int action, int mods);
@@ -44,12 +47,14 @@ unsigned int windowVAO;
 unsigned int windowVBO;
 unsigned int roomVAO;
 unsigned int roomVBO;
+unsigned int nameVAO;
+unsigned int nameVBO;
 
 
 
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
-
+bool isNight = false;
 
 int main(void)
 {
@@ -84,13 +89,16 @@ int main(void)
         std::cout << "GLEW nije mogao da se ucita! :'(\n";
         return 3;
     }
+
     unsigned int srbShader = createShader("basic.vert", "srb.frag");
     unsigned int windowShader = createShader("basic.vert", "window.frag");
-    unsigned int japShader = createShader("basic.vert", "jap.frag");
+    unsigned int japShader = createShader("sun.vert", "jap.frag");
     unsigned int fenceShader = createShader("basic.vert", "fence.frag");
     unsigned int treeShader = createShader("tex.vert", "tree.frag");
     unsigned int dogShader = createShader("moving.vert", "tree.frag");
     unsigned int roomShader = createShader("tex.vert", "tree.frag");
+    unsigned int nameShader = createShader("tex.vert", "tree.frag");
+
 
 
 
@@ -108,6 +116,8 @@ int main(void)
     glGenBuffers(1, &windowVBO);
     glGenVertexArrays(1, &roomVAO);
     glGenBuffers(1, &roomVBO);
+    glGenVertexArrays(1, &nameVAO);
+    glGenBuffers(1, &nameVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -215,6 +225,7 @@ int main(void)
     fillTreeVAO();
     fillDogVAO();
     fillRoomVAO();
+    fillNameVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -229,9 +240,15 @@ int main(void)
     //neki lik za sobu
     bindTexture(roomShader, dogTexture);
 
+    unsigned nameTexture = loadImageToTexture("res/aleksa2.png");
+    bindTexture(nameShader, nameTexture);
+
+
     //Uniforme
     unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
     unsigned int uFlip = glGetUniformLocation(dogShader, "uFlip");
+
+    unsigned int uPosLocSun = glGetUniformLocation(japShader, "uPos");
 
     unsigned int uWhiteLevel = glGetUniformLocation(treeShader, "uWhiteLevel");
 
@@ -246,7 +263,9 @@ int main(void)
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+    float rrr = 0.4;      //Poluprecnik kruznice po kojoj se trougao krece, mora biti manji od najmanje apsolutne vrednosti y koordinate temena
+    float rotationSpeed = 0.8; //brzina rotacije trouglova
+    bool first = true;
     glClearColor(1.0, 1.0, 1.0, 1.0);
     while (!glfwWindowShouldClose(window))
     {
@@ -255,7 +274,7 @@ int main(void)
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(srbShader);
+        
 
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
         {
@@ -291,11 +310,34 @@ int main(void)
                 x_move = -0.45;
             flip = 1.0;
         }
+        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+        {
+            isNight = true;
+        }
+        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+        {
+            isNight = false;
+        }
 
-
+        glUseProgram(srbShader);
         glBindVertexArray(bigVAO);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+
+        glUseProgram(japShader);
+        glBindVertexArray(sunVAO);
+        float minScale = 0.3f; // Minimalna vrednost
+        float maxScale = 0.5f; // Maksimalna vrednost
+        float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
+        glUniform1f(uPulse, oscillation);
+        if (isNight) {
+            glUniform2f(uPosLocSun, rrr * cos(glfwGetTime() * rotationSpeed), rrr * (sin(glfwGetTime() * rotationSpeed)));
+        }
+        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+
+        glUseProgram(srbShader);
+        glBindVertexArray(bigVAO);
         glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
@@ -303,6 +345,8 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
         glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
+
+        
 
         glUseProgram(roomShader);
         glBindVertexArray(roomVAO);
@@ -324,13 +368,7 @@ int main(void)
         //glLineWidth(4.0);
         //GL_LINE_LOOP za linije
 
-        glUseProgram(japShader);
-        glBindVertexArray(sunVAO);
-        float minScale = 0.3f; // Minimalna vrednost
-        float maxScale = 0.5f; // Maksimalna vrednost
-        float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
-        glUniform1f(uPulse, oscillation);
-        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+        
 
 
         glUseProgram(fenceShader);
@@ -340,6 +378,13 @@ int main(void)
             glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
             i++;
         }
+
+        glUseProgram(nameShader);
+        glBindVertexArray(nameVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, nameTexture);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
         glUseProgram(treeShader);
         glBindVertexArray(treeVAO);
@@ -360,6 +405,9 @@ int main(void)
         glBindTexture(GL_TEXTURE_2D, 0);
 
 
+        
+
+
         glUseProgram(0);
         glBindVertexArray(0);
 
@@ -368,6 +416,7 @@ int main(void)
     }
     glDeleteTextures(1, &treeTexture);
     glDeleteTextures(1, &dogTexture);
+    glDeleteTextures(1, &nameTexture);
 
     glDeleteBuffers(1, &bigVBO);
     glDeleteVertexArrays(1, &bigVAO);
@@ -492,6 +541,24 @@ void fillTreeVAO() {
     glBindVertexArray(treeVAO);
     glBindBuffer(GL_ARRAY_BUFFER, treeVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(tree_vertices), tree_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+}
+
+void fillNameVAO() {
+    float name_vertices[] =
+    {   //X    Y        S    T 
+        -1.0, -0.72,         0.0, 1.0,//gore levo
+        -0.5, -0.72,         1.0, 1.0, //gore desno
+        -1.0, -0.83,         0.0, 0.0, //dole levo
+        -0.5, -0.83,         1.0, 0.0, //dole desno
+    };
+    glBindVertexArray(nameVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, nameVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(name_vertices), name_vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
@@ -718,3 +785,5 @@ void setupBoneCursor(GLFWwindow* window) {
         std::cerr << "Failed to load cursor image!" << std::endl;
     }
 }
+
+
