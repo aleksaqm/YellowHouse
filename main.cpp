@@ -26,6 +26,13 @@ void fillFenceVAO();
 void fillWindowVAO();
 void fillRoomVAO();
 void fillNameVAO();
+void drawBackground(unsigned int srbShader);
+void drawHouse(unsigned int srbShader);
+void drawRoom(unsigned int roomShader, unsigned dogTexture);
+void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency);
+void drawFence(unsigned int fenceShader);
+void drawName(unsigned int nameShader, unsigned nameTexture);
+void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLevel, unsigned treeTexture);
 
 void setupBoneCursor(GLFWwindow* window);
 bool isMouseOverGrass(double mouseX, double mouseY);
@@ -274,8 +281,6 @@ int main(void)
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        
-
         if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
         {
             transparency = 0.3;  // Poluprovidno staklo
@@ -319,10 +324,7 @@ int main(void)
             isNight = false;
         }
 
-        glUseProgram(srbShader);
-        glBindVertexArray(bigVAO);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+        drawBackground(srbShader);
 
         glUseProgram(japShader);
         glBindVertexArray(sunVAO);
@@ -335,77 +337,26 @@ int main(void)
         }
         glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
 
+        drawHouse(srbShader);
 
-        glUseProgram(srbShader);
-        glBindVertexArray(bigVAO);
-        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
+        drawRoom(roomShader, dogTexture);
 
-        
+        drawWindows(windowShader, uTransparency, transparency);
 
-        glUseProgram(roomShader);
-        glBindVertexArray(roomVAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, dogTexture);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        drawFence(fenceShader);
 
+        drawName(nameShader, nameTexture);
 
-        glUseProgram(windowShader);
-
-        glBindVertexArray(windowVAO);
-        glUniform1f(uTransparency, transparency);
-
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
-        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
-        //glLineWidth(4.0);
-        //GL_LINE_LOOP za linije
-
-        
-
-
-        glUseProgram(fenceShader);
-        glBindVertexArray(fenceVAO);
-        int i = 0;
-        while (i < 34) {
-            glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
-            i++;
-        }
-
-        glUseProgram(nameShader);
-        glBindVertexArray(nameVAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, nameTexture);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        glUseProgram(treeShader);
-        glBindVertexArray(treeVAO);
-        glUniform1f(uWhiteLevel, whiteLevel);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, treeTexture);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        drawTree(treeShader, uWhiteLevel, whiteLevel, treeTexture);
 
         glUseProgram(dogShader);
         glUniform1f(uXpos, x_move);
         glUniform1f(uFlip, flip);
-
         glBindVertexArray(dogVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, dogTexture);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindTexture(GL_TEXTURE_2D, 0);
-
-
-        
 
 
         glUseProgram(0);
@@ -439,6 +390,77 @@ int main(void)
 
     glfwTerminate();
     return 0;
+}
+
+
+
+void drawBackground(unsigned int srbShader) {
+    glUseProgram(srbShader);
+    glBindVertexArray(bigVAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+}
+
+void drawHouse(unsigned int srbShader) {
+    glUseProgram(srbShader);
+    glBindVertexArray(bigVAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 16, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 20, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 24, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 28, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
+}
+
+void drawRoom(unsigned int roomShader, unsigned dogTexture) {
+    glUseProgram(roomShader);
+    glBindVertexArray(roomVAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, dogTexture);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency) {
+    glUseProgram(windowShader);
+    glBindVertexArray(windowVAO);
+    glUniform1f(uTransparency, transparency);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+    //glLineWidth(4.0);
+    //GL_LINE_LOOP za linije
+}
+
+void drawName(unsigned int nameShader, unsigned nameTexture) {
+    glUseProgram(nameShader);
+    glBindVertexArray(nameVAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, nameTexture);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void drawFence(unsigned int fenceShader) {
+    glUseProgram(fenceShader);
+    glBindVertexArray(fenceVAO);
+    int i = 0;
+    while (i < 34) {
+        glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
+        i++;
+    }
+}
+
+void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLevel, unsigned treeTexture) {
+    glUseProgram(treeShader);
+    glBindVertexArray(treeVAO);
+    glUniform1f(uWhiteLevel, whiteLevel);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, treeTexture);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
