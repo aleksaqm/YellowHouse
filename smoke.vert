@@ -7,10 +7,14 @@ uniform vec2 uStartPosition;
 uniform float uParticleLife;
 
 out vec2 fragCoord;
+out float vLifeProgress;
 
 void main()
 {
-    float lifeProgress = mod(uTime, uParticleLife) / uParticleLife;
+    float instanceOffset = float(gl_InstanceID) * 0.5;
+    float lifeProgress = mod(uTime + instanceOffset, uParticleLife) / uParticleLife;
+
+    vLifeProgress = lifeProgress; 
 
     float verticalOffset = lifeProgress * 0.5;
 

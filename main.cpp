@@ -223,10 +223,10 @@ int main(void)
          0.80, 0.30,   rr, rg, rb,
          0.50, 0.70,   rr, rg, rb,
 
-         0.62, 0.57,    0, 0, 0,
-         0.62, 0.4,    0, 0, 0,
-         0.7, 0.57,     0, 0, 0,
-         0.7, 0.4,     0, 0, 0,
+         0.62, 0.57,    0.32, 0.32, 0.32,
+         0.62, 0.4,    0.32, 0.32, 0.32,
+         0.7, 0.57,     0.32, 0.32, 0.32,
+         0.7, 0.4,     0.32, 0.32, 0.32,
     };
 
     
@@ -680,16 +680,16 @@ void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, f
 }
 
 void drawSmoke(unsigned int smokeShader, float* smokeTime) {
+    const int numInstances = 12;  // Broj oblaka istovremeno
     float circle[(CRES + 2) * 2];
-    float r = 0.3;
+    float r = 0.2;
 
     circle[0] = 0.0; // Centar X
     circle[1] = 0.0; // Centar Y
 
-    for (int i = 0; i <= CRES; i++)
-    {
+    for (int i = 0; i <= CRES; i++) {
         circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES));
-        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.0;
+        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES));
     }
 
     glBindVertexArray(smokeVAO);
@@ -698,7 +698,7 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    float particleLife = 1.0f;
+    float particleLife = 3.0f;
 
     glUseProgram(smokeShader);
     glBindVertexArray(smokeVAO);
@@ -707,8 +707,8 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
     glUniform1f(glGetUniformLocation(smokeShader, "uTime"), *smokeTime);
     glUniform1f(glGetUniformLocation(smokeShader, "uParticleLife"), particleLife);
     glUniform2f(glGetUniformLocation(smokeShader, "uStartPosition"), 0.66, 0.57);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
-    //glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+    glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, CRES + 2, numInstances);
 }
 
 

@@ -2,20 +2,20 @@
 
 out vec4 FragColor;
 
-uniform float uTime;
 uniform float uParticleLife;
+
 in vec2 fragCoord;
+in float vLifeProgress;
 
 void main()
 {
     float distanceFromCenter = length(fragCoord);
 
-    float lifeProgress = mod(uTime, uParticleLife) / uParticleLife;
+    float alpha = (1.0 - vLifeProgress) * smoothstep(0.5, 0.0, distanceFromCenter);
 
-    float alpha = (1.0 - lifeProgress) * smoothstep(0.5, 0.0, distanceFromCenter);
+    if (alpha < 0.01)
+        discard;
 
-    if (alpha < 0.01) 
-        discard;  
-
-    FragColor = vec4(vec3(0.5), alpha);
+    float brightness = mix(0.2, 0.8, vLifeProgress);
+    FragColor = vec4(vec3(brightness), alpha);
 }
