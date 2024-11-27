@@ -34,6 +34,7 @@ void drawGrass(unsigned int srbShader);
 void drawHouse(unsigned int srbShader);
 void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom);
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2);
+void drawSmoke(unsigned int smokeShader, float* smokeTime);
 
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
@@ -67,7 +68,8 @@ unsigned int roomBgVAO;
 unsigned int roomBgVBO;
 unsigned int zzzVAO;
 unsigned int zzzVBO;
-
+unsigned int smokeVAO;
+unsigned int smokeVBO;
 
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
@@ -128,9 +130,7 @@ int main(void)
     unsigned int moonShader = createShader("sun.vert", "moon.frag");
     unsigned int roomBgShader = createShader("basic.vert", "roombg.frag");
     unsigned int zzzShader = createShader("zzz.vert", "disappear.frag");
-
-
-
+    unsigned int smokeShader = createShader("smoke.vert", "smoking.frag");
 
 
 
@@ -154,6 +154,8 @@ int main(void)
     glGenBuffers(1, &roomBgVBO);
     glGenVertexArrays(1, &zzzVAO);
     glGenBuffers(1, &zzzVBO);
+    glGenVertexArrays(1, &smokeVAO);
+    glGenBuffers(1, &smokeVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -322,6 +324,9 @@ int main(void)
     float time2 = glfwGetTime() + 2;
     float time3 = glfwGetTime() + 4;
 
+    float smokeTime = 0.0f;
+    float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
+
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -473,8 +478,9 @@ int main(void)
         if (isNight) {
             drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
         }
-        
 
+        drawSmoke(smokeShader, &smokeTime);
+        
         glUseProgram(0);
         glBindVertexArray(0);
 
@@ -664,6 +670,33 @@ void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, f
         *t2 = 0;
         *time3 = glfwGetTime() + 4;
     }
+}
+
+void drawSmoke(unsigned int smokeShader, float* smokeTime) {
+    float smoke_tacke[] = {
+        1.0, 0.1,
+        1.0, 0.0,
+        0.9, 0.1,
+        0.9, 0.0,
+    };
+    glBindVertexArray(smokeVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, smokeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(smoke_tacke), smoke_tacke, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
+
+    glUseProgram(smokeShader);
+    glBindVertexArray(smokeVAO);
+    *smokeTime += 0.001;
+
+    glUniform1f(glGetUniformLocation(smokeShader, "uTime"), *smokeTime);
+    glUniform1f(glGetUniformLocation(smokeShader, "uParticleLife"), particleLife);
+    glUniform2f(glGetUniformLocation(smokeShader, "uStartPosition"), 0.0, 0.0);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+
 }
 
 
