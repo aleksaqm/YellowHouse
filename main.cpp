@@ -26,12 +26,12 @@ void fillFenceVAO();
 void fillWindowVAO();
 void fillRoomVAO();
 void fillNameVAO();
-void drawBackground(unsigned int srbShader);
+void drawBackground(unsigned int srbShader, unsigned int uDarkening);
 void drawGrass(unsigned int srbShader);
 void drawHouse(unsigned int srbShader);
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
-void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency);
-void drawFence(unsigned int fenceShader);
+void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
+void drawFence(unsigned int fenceShader, unsigned int uDarkeningF);
 void drawName(unsigned int nameShader, unsigned nameTexture);
 void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLevel, unsigned treeTexture);
 
@@ -63,7 +63,8 @@ unsigned int nameVBO;
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
 bool isNight = false;
-float startTime = 0.0;
+float startTimeSun = 0.0;
+float startTimeMoon = 0.0;
 
 float sunX = 0.0;
 float sunY = 0.0;
@@ -112,6 +113,8 @@ int main(void)
     unsigned int dogShader = createShader("moving.vert", "tree.frag");
     unsigned int roomShader = createShader("tex.vert", "tree.frag");
     unsigned int nameShader = createShader("tex.vert", "tree.frag");
+    unsigned int moonShader = createShader("sun.vert", "moon.frag");
+
 
 
 
@@ -259,6 +262,11 @@ int main(void)
 
 
     //Uniforme
+    unsigned int uDarkening = glGetUniformLocation(srbShader, "uDarkening");
+    unsigned int uDarkeningW = glGetUniformLocation(windowShader, "uDarkening");
+    unsigned int uDarkeningF = glGetUniformLocation(fenceShader, "uDarkening");
+
+
     unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
     unsigned int uFlip = glGetUniformLocation(dogShader, "uFlip");
 
@@ -281,7 +289,9 @@ int main(void)
     float rotationSpeed = 0.8; //brzina rotacije trouglova
     bool first = true;
     glClearColor(1.0, 1.0, 1.0, 1.0);
-    startTime = glfwGetTime() + 0.5;
+    startTimeSun = glfwGetTime() + 0.5;
+    startTimeMoon = glfwGetTime() + 4;
+
     //startTime = -1 * startTime;
     bool isRotating = false;
     while (!glfwWindowShouldClose(window))
@@ -313,17 +323,21 @@ int main(void)
 
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
-            x_move += 0.0001;
-            if (x_move > 0.6)
-                x_move = 0.6;
-            flip = -1.0;
+            if (!isNight) {
+                x_move += 0.0001;
+                if (x_move > 0.6)
+                    x_move = 0.6;
+                flip = -1.0;
+            }
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
-            x_move -= 0.0001;
-            if (x_move < -0.45)
-                x_move = -0.45;
-            flip = 1.0;
+            if (!isNight) {
+                x_move -= 0.0001;
+                if (x_move < -0.45)
+                    x_move = -0.45;
+                flip = 1.0;
+            }
         }
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
         {
@@ -336,7 +350,7 @@ int main(void)
             isRotating = true;
         }
 
-        drawBackground(srbShader);
+        drawBackground(srbShader, uDarkening);
 
         glUseProgram(japShader);
         glBindVertexArray(sunVAO);
@@ -344,44 +358,66 @@ int main(void)
         float maxScale = 0.5f; // Maksimalna vrednost
         float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
         glUniform1f(uPulse, oscillation);
-        
-        glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * sin(startTime));
-        sunX = rrr * cos(startTime);
-        sunY = rrr * sin(startTime);
+        glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * sin(startTimeSun));
+        sunX = rrr * cos(startTimeSun);
+        sunY = rrr * sin(startTimeSun);
         if (isRotating) {
             if (isNight) {
-                startTime += 0.001;
-                sunX = rrr * cos(startTime);
-                sunY = rrr * sin(startTime);
+                startTimeSun += 0.001;
+                sunX = rrr * cos(startTimeSun);
+                sunY = rrr * sin(startTimeSun);
 
-                glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * (sin(startTime)));
-                if (sunX < -0.5 && sunY < -0.5) {
+                glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
+                if (sunX < -0.5 && sunY < -0.7) {
                     isRotating = false;
                 }
             }
             else {
-                startTime += 0.001;
-                sunX = rrr * cos(startTime);
-                sunY = rrr * sin(startTime);
+                startTimeSun += 0.001;
+                sunX = rrr * cos(startTimeSun);
+                sunY = rrr * sin(startTimeSun);
 
-                glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * (sin(startTime)));
-                if (sunX > -0.3 && sunY > 0.7) {
+                glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
+                if (sunX > -0.3 && sunY > 0.8) {
                     isRotating = false;
                 }
             }
         }
         glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
 
+        glUseProgram(moonShader);
+        glBindVertexArray(sunVAO);
+        glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * sin(startTimeMoon));
+        moonX = rrr * cos(startTimeMoon);
+        moonY = rrr * sin(startTimeMoon);
+        if (isRotating) {
+            if (isNight) {
+                startTimeMoon += 0.001;
+                moonX = rrr * cos(startTimeMoon);
+                moonY = rrr * sin(startTimeMoon);
 
-        //drawGrass(srbShader);
+                glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+            }
+            else {
+                startTimeMoon += 0.001;
+                moonX = rrr * cos(startTimeMoon);
+                moonY = rrr * sin(startTimeMoon);
+
+                glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+            }
+        }
+        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+
+        drawGrass(srbShader);
 
         drawHouse(srbShader);
 
         drawRoom(roomShader, dogTexture);
 
-        drawWindows(windowShader, uTransparency, transparency);
+        drawWindows(windowShader, uTransparency, transparency, uDarkeningW);
 
-        drawFence(fenceShader);
+        drawFence(fenceShader, uDarkeningF);
 
         drawName(nameShader, nameTexture);
 
@@ -432,11 +468,16 @@ int main(void)
 
 
 
-void drawBackground(unsigned int srbShader) {
+void drawBackground(unsigned int srbShader, unsigned int uDarkening) {
     glUseProgram(srbShader);
     glBindVertexArray(bigVAO);
+    if (isNight) {
+        glUniform1f(uDarkening, 0.3);
+    }
+    else {
+        glUniform1f(uDarkening, 1);
+    }
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
 }
 
 void drawGrass(unsigned int srbShader) {
@@ -466,10 +507,16 @@ void drawRoom(unsigned int roomShader, unsigned dogTexture) {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency) {
+void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW) {
     glUseProgram(windowShader);
     glBindVertexArray(windowVAO);
     glUniform1f(uTransparency, transparency);
+    if (isNight) {
+        glUniform1f(uDarkeningW, 0.4);
+    }
+    else {
+        glUniform1f(uDarkeningW, 1);
+    }
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
     glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
@@ -487,9 +534,15 @@ void drawName(unsigned int nameShader, unsigned nameTexture) {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void drawFence(unsigned int fenceShader) {
+void drawFence(unsigned int fenceShader, unsigned int uDarkeningF) {
     glUseProgram(fenceShader);
     glBindVertexArray(fenceVAO);
+    if (isNight) {
+        glUniform1f(uDarkeningF, 0.5);
+    }
+    else {
+        glUniform1f(uDarkeningF, 1);
+    }
     int i = 0;
     while (i < 34) {
         glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
