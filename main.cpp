@@ -26,9 +26,12 @@ void fillFenceVAO();
 void fillWindowVAO();
 void fillRoomVAO();
 void fillNameVAO();
+void fillRoomBgVAO();
 void drawBackground(unsigned int srbShader, unsigned int uDarkening);
 void drawGrass(unsigned int srbShader);
 void drawHouse(unsigned int srbShader);
+void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom);
+
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
 void drawFence(unsigned int fenceShader, unsigned int uDarkeningF);
@@ -57,7 +60,8 @@ unsigned int roomVAO;
 unsigned int roomVBO;
 unsigned int nameVAO;
 unsigned int nameVBO;
-
+unsigned int roomBgVAO;
+unsigned int roomBgVBO;
 
 
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
@@ -114,6 +118,7 @@ int main(void)
     unsigned int roomShader = createShader("tex.vert", "tree.frag");
     unsigned int nameShader = createShader("tex.vert", "tree.frag");
     unsigned int moonShader = createShader("sun.vert", "moon.frag");
+    unsigned int roomBgShader = createShader("basic.vert", "roombg.frag");
 
 
 
@@ -135,6 +140,8 @@ int main(void)
     glGenBuffers(1, &roomVBO);
     glGenVertexArrays(1, &nameVAO);
     glGenBuffers(1, &nameVBO);
+    glGenVertexArrays(1, &roomBgVAO);
+    glGenBuffers(1, &roomBgVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -243,6 +250,7 @@ int main(void)
     fillDogVAO();
     fillRoomVAO();
     fillNameVAO();
+    fillRoomBgVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -266,6 +274,7 @@ int main(void)
     unsigned int uDarkeningW = glGetUniformLocation(windowShader, "uDarkening");
     unsigned int uDarkeningF = glGetUniformLocation(fenceShader, "uDarkening");
 
+    unsigned int uPulseRoom = glGetUniformLocation(roomBgShader, "uPulse");
 
     unsigned int uXpos = glGetUniformLocation(dogShader, "uXpos");
     unsigned int uFlip = glGetUniformLocation(dogShader, "uFlip");
@@ -413,6 +422,8 @@ int main(void)
 
         drawHouse(srbShader);
 
+        drawRoomBg(roomBgShader, uPulseRoom);
+
         drawRoom(roomShader, dogTexture);
 
         drawWindows(windowShader, uTransparency, transparency, uDarkeningW);
@@ -498,23 +509,48 @@ void drawHouse(unsigned int srbShader) {
     glDrawArrays(GL_TRIANGLE_STRIP, 32, 3);
 }
 
+void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom) {
+    glUseProgram(roomBgShader);
+    glBindVertexArray(roomBgVAO);
+    if (isNight) {
+        float minScale = 0.66f;
+        float maxScale = 1.0f;
+        float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
+        glUniform1f(uPulseRoom, oscillation);
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+    }
+    else {
+        glUniform1f(uPulseRoom, 0.8);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4);
+    }
+}
+
 void drawRoom(unsigned int roomShader, unsigned dogTexture) {
     glUseProgram(roomShader);
     glBindVertexArray(roomVAO);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, dogTexture);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    if (isNight) {
+        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+    }
+    else {
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW) {
     glUseProgram(windowShader);
     glBindVertexArray(windowVAO);
-    glUniform1f(uTransparency, transparency);
     if (isNight) {
+        glUniform1f(uTransparency, 0.4);
         glUniform1f(uDarkeningW, 0.4);
     }
     else {
+        glUniform1f(uTransparency, transparency);
         glUniform1f(uDarkeningW, 1);
     }
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -602,6 +638,11 @@ void fillRoomVAO() {
          0.41, 0.03,   1.0, 0.0,
          0.29, 0.21,   0.0, 1.0,
          0.41, 0.21,   1.0, 1.0,
+
+         0.59, -0.27,  0.0, 0.0, 
+         0.71, -0.27,  1.0, 0.0,
+         0.59, -0.09,  0.0, 1.0,
+         0.71, -0.09,  1.0, 1.0,
     };
 
     glBindVertexArray(roomVAO);
@@ -614,6 +655,36 @@ void fillRoomVAO() {
     glEnableVertexAttribArray(1);
 }
 
+void fillRoomBgVAO() {
+    float room_vertices[] =
+    {
+         0.29, -0.27,   
+         0.41, -0.27,
+         0.29, -0.09,
+         0.41, -0.09,   
+
+         0.59, -0.27,  
+         0.71, -0.27, 
+         0.59, -0.09, 
+         0.71, -0.09,
+
+         0.29, 0.03,
+         0.41, 0.03,
+         0.29, 0.21,
+         0.41, 0.21,
+
+         0.59, 0.03,    
+         0.71, 0.03, 
+         0.59, 0.21,    
+         0.71, 0.21,
+    };
+
+    glBindVertexArray(roomBgVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, roomBgVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(room_vertices), room_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+}
 
 void fillFenceVAO() {
     float fence[1000] = {
