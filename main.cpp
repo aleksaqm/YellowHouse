@@ -13,6 +13,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <chrono>
+#include <thread>
 
 GLFWcursor* boneCursor = nullptr;
 
@@ -31,6 +33,7 @@ void drawBackground(unsigned int srbShader, unsigned int uDarkening);
 void drawGrass(unsigned int srbShader);
 void drawHouse(unsigned int srbShader);
 void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom);
+void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2);
 
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
@@ -62,6 +65,8 @@ unsigned int nameVAO;
 unsigned int nameVBO;
 unsigned int roomBgVAO;
 unsigned int roomBgVBO;
+unsigned int zzzVAO;
+unsigned int zzzVBO;
 
 
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
@@ -74,6 +79,9 @@ float sunX = 0.0;
 float sunY = 0.0;
 float moonX = 0.0;
 float moonY = 0.0;
+
+float dogX = -0.35;
+float dogY = -0.07;
 
 int main(void)
 {
@@ -119,6 +127,8 @@ int main(void)
     unsigned int nameShader = createShader("tex.vert", "tree.frag");
     unsigned int moonShader = createShader("sun.vert", "moon.frag");
     unsigned int roomBgShader = createShader("basic.vert", "roombg.frag");
+    unsigned int zzzShader = createShader("zzz.vert", "disappear.frag");
+
 
 
 
@@ -142,6 +152,8 @@ int main(void)
     glGenBuffers(1, &nameVBO);
     glGenVertexArrays(1, &roomBgVAO);
     glGenBuffers(1, &roomBgVBO);
+    glGenVertexArrays(1, &zzzVAO);
+    glGenBuffers(1, &zzzVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -221,9 +233,7 @@ int main(void)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
     
-
     float aspectRatio = (float)wWidth / wHeight;
 
     float circle[(CRES + 2) * 2];
@@ -303,6 +313,15 @@ int main(void)
 
     //startTime = -1 * startTime;
     bool isRotating = false;
+    float t1 = 0.0f;
+    float t2 = 0.0f;
+    float t3 = 0.0f;
+
+    float broj = 0;
+    float time1 = glfwGetTime();
+    float time2 = glfwGetTime() + 2;
+    float time3 = glfwGetTime() + 4;
+
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -334,8 +353,12 @@ int main(void)
         {
             if (!isNight) {
                 x_move += 0.0001;
-                if (x_move > 0.6)
+                if (x_move > 0.6) {
                     x_move = 0.6;
+                }
+                else {
+                    dogX += 0.0001;
+                }
                 flip = -1.0;
             }
         }
@@ -343,8 +366,12 @@ int main(void)
         {
             if (!isNight) {
                 x_move -= 0.0001;
-                if (x_move < -0.45)
+                if (x_move < -0.45) {
                     x_move = -0.45;
+                }
+                else {
+                    dogX -= 0.0001;
+                }
                 flip = 1.0;
             }
         }
@@ -443,6 +470,10 @@ int main(void)
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindTexture(GL_TEXTURE_2D, 0);
 
+        if (isNight) {
+            drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
+        }
+        
 
         glUseProgram(0);
         glBindVertexArray(0);
@@ -594,6 +625,45 @@ void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLeve
     glBindTexture(GL_TEXTURE_2D, treeTexture);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2) {
+    float zzz_tacke[] = {
+        dogX, dogY + 0.02,           //gore levo
+        dogX + 0.02, dogY + 0.02,     //gore desno
+        dogX, dogY,                 //dole levo
+        dogX + 0.02, dogY,           //dole desno
+    };
+    glBindVertexArray(zzzVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, zzzVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(zzz_tacke), zzz_tacke, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glUseProgram(zzzShader);
+    //time += 0.0001;
+    glBindVertexArray(zzzVAO);
+    if (*time1 <= glfwGetTime()) {
+        *t1 += 0.001;
+        glUniform1f(glGetUniformLocation(zzzShader, "uTime"), *t1);
+        glLineWidth(2);
+        glDrawArrays(GL_LINE_STRIP, 0, 4);
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
+    if (*time2 <= glfwGetTime()) {
+        *t2 += 0.001;
+        glUniform1f(glGetUniformLocation(zzzShader, "uTime"), *t2);
+        glLineWidth(2);
+        glDrawArrays(GL_LINE_STRIP, 0, 4);
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
+    if (*time3 <= glfwGetTime()) {
+        *time1 = glfwGetTime();
+        *t1 = 0;
+        *time2 = glfwGetTime() + 2;
+        *t2 = 0;
+        *time3 = glfwGetTime() + 4;
+    }
 }
 
 
