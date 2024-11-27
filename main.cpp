@@ -27,6 +27,7 @@ void fillWindowVAO();
 void fillRoomVAO();
 void fillNameVAO();
 void drawBackground(unsigned int srbShader);
+void drawGrass(unsigned int srbShader);
 void drawHouse(unsigned int srbShader);
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency);
@@ -62,6 +63,12 @@ unsigned int nameVBO;
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
 bool isNight = false;
+float startTime = 0.0;
+
+float sunX = 0.0;
+float sunY = 0.0;
+float moonX = 0.0;
+float moonY = 0.0;
 
 int main(void)
 {
@@ -213,12 +220,12 @@ int main(void)
     float r = 0.1;
 
     circle[0] = 0.0; // Centar X
-    circle[1] = 0.8; // Centar Y
+    circle[1] = 0.0; // Centar Y
 
     for (int i = 0; i <= CRES; i++)
     {
         circle[2 + 2 * i] = r * cos((3.141592 / 180) * (i * 360 / CRES)) / aspectRatio;
-        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.8;
+        circle[2 + 2 * i + 1] = r * sin((3.141592 / 180) * (i * 360 / CRES)) + 0.0;
     }
 
     glBindVertexArray(sunVAO);
@@ -270,10 +277,13 @@ int main(void)
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    float rrr = 0.4;      //Poluprecnik kruznice po kojoj se trougao krece, mora biti manji od najmanje apsolutne vrednosti y koordinate temena
+    float rrr = 0.9;      //Poluprecnik kruznice po kojoj se trougao krece, mora biti manji od najmanje apsolutne vrednosti y koordinate temena
     float rotationSpeed = 0.8; //brzina rotacije trouglova
     bool first = true;
     glClearColor(1.0, 1.0, 1.0, 1.0);
+    startTime = glfwGetTime() + 0.5;
+    //startTime = -1 * startTime;
+    bool isRotating = false;
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -318,10 +328,12 @@ int main(void)
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
         {
             isNight = true;
+            isRotating = true;
         }
         if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
         {
             isNight = false;
+            isRotating = true;
         }
 
         drawBackground(srbShader);
@@ -332,10 +344,36 @@ int main(void)
         float maxScale = 0.5f; // Maksimalna vrednost
         float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
         glUniform1f(uPulse, oscillation);
-        if (isNight) {
-            glUniform2f(uPosLocSun, rrr * cos(glfwGetTime() * rotationSpeed), rrr * (sin(glfwGetTime() * rotationSpeed)));
+        
+        glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * sin(startTime));
+        sunX = rrr * cos(startTime);
+        sunY = rrr * sin(startTime);
+        if (isRotating) {
+            if (isNight) {
+                startTime += 0.001;
+                sunX = rrr * cos(startTime);
+                sunY = rrr * sin(startTime);
+
+                glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * (sin(startTime)));
+                if (sunX < -0.5 && sunY < -0.5) {
+                    isRotating = false;
+                }
+            }
+            else {
+                startTime += 0.001;
+                sunX = rrr * cos(startTime);
+                sunY = rrr * sin(startTime);
+
+                glUniform2f(uPosLocSun, rrr * cos(startTime), rrr * (sin(startTime)));
+                if (sunX > -0.3 && sunY > 0.7) {
+                    isRotating = false;
+                }
+            }
         }
         glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+
+        //drawGrass(srbShader);
 
         drawHouse(srbShader);
 
@@ -398,6 +436,12 @@ void drawBackground(unsigned int srbShader) {
     glUseProgram(srbShader);
     glBindVertexArray(bigVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
+}
+
+void drawGrass(unsigned int srbShader) {
+    glUseProgram(srbShader);
+    glBindVertexArray(bigVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 4, 4);
 }
 
