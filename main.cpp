@@ -35,7 +35,7 @@ void drawHouse(unsigned int srbShader);
 void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom);
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2);
 void drawSmoke(unsigned int smokeShader, float* smokeTime);
-void drawFood(unsigned int srbShader);
+void drawFood(unsigned int foodShader, unsigned foodTexture);
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
 void drawFence(unsigned int fenceShader, unsigned int uDarkeningF);
@@ -141,6 +141,7 @@ int main(void)
     unsigned int roomBgShader = createShader("basic.vert", "roombg.frag");
     unsigned int zzzShader = createShader("zzz.vert", "disappear.frag");
     unsigned int smokeShader = createShader("smoke.vert", "smoking.frag");
+    unsigned int foodShader = createShader("tex.vert", "tree.frag");
 
 
 
@@ -292,10 +293,18 @@ int main(void)
     bindTexture(dogShader, dogTexture);
 
     //neki lik za sobu
-    bindTexture(roomShader, dogTexture);
+    unsigned margeTexture = loadImageToTexture("res/marge.png");
+    unsigned homerTexture = loadImageToTexture("res/homer.png");
+
+    bindTexture(roomShader, margeTexture);
+    bindTexture(roomShader, homerTexture);
+
 
     unsigned nameTexture = loadImageToTexture("res/aleksa2.png");
     bindTexture(nameShader, nameTexture);
+
+    unsigned foodTexture = loadImageToTexture("res/dogfood.png");
+    bindTexture(foodShader, foodTexture);
 
 
     //Uniforme
@@ -520,8 +529,12 @@ int main(void)
         drawHouse(srbShader);
 
         drawRoomBg(roomBgShader, uPulseRoom);
-
-        drawRoom(roomShader, dogTexture);
+        if (isNight) {
+            drawRoom(roomShader, homerTexture);
+        }
+        else {
+            drawRoom(roomShader, margeTexture);
+        }
 
         drawWindows(windowShader, uTransparency, transparency, uDarkeningW);
 
@@ -547,7 +560,7 @@ int main(void)
         drawSmoke(smokeShader, &smokeTime);
 
         if (isEating) {
-            drawFood(fenceShader);
+            drawFood(foodShader, foodTexture);
         }
         
         glUseProgram(0);
@@ -775,13 +788,13 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
     glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, CRES + 2, numInstances);
 }
 
-void drawFood(unsigned int srbShader) {
+void drawFood(unsigned int foodShader, unsigned foodTexture) {
     float food_vertices[] =
     {
-        foodX, foodY + 0.1,           //gore levo
-        foodX + 0.1, foodY + 0.1,     //gore desno
-        foodX, foodY,                 //dole levo
-        foodX + 0.1, foodY,           //dole desno
+        foodX, foodY + 0.16,         0.0, 1.0,            //gore levo
+        foodX + 0.12, foodY + 0.16,   1.0, 1.0,            //gore desno
+        foodX, foodY - 0.05,               0.0, 0.0,            //dole levo
+        foodX + 0.12, foodY - 0.05,         1.0, 0.0,            //dole desno
     };
 
     /*std::cout << foodX;
@@ -791,13 +804,17 @@ void drawFood(unsigned int srbShader) {
     glBindVertexArray(foodVAO);
     glBindBuffer(GL_ARRAY_BUFFER, foodVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(food_vertices), food_vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
-    glUseProgram(srbShader);
+    glUseProgram(foodShader);
     glBindVertexArray(foodVAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, foodTexture);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void fillWindowVAO() {
@@ -1015,7 +1032,7 @@ void mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
         mouseY = -((mouseY / windowHeight) * 2.0 - 1.0); // Inverzija osi Y
 
         if (isMouseOverGrass(mouseX, mouseY)) {
-            isFoodPresent = true; // Hrana se sada pojavljuje
+            isFoodPresent = true; // Hrana se sada pojavljujeoopo
             foodPosX = mouseX;
             foodPosY = mouseY;
             dogFeeding(foodPosX, foodPosY);
