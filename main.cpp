@@ -88,7 +88,7 @@ float dogX = -0.35;
 float dogY = -0.07;
 
 float eatDogX = -0.35;
-float eatDogY = -0.07;
+float eatDogY = -0.17;
 
 float foodX = 0.0;
 float foodY = -0.53;
@@ -289,8 +289,13 @@ int main(void)
     unsigned treeTexture = loadImageToTexture("res/sljiva.png");
     bindTexture(treeShader, treeTexture);
 
-    unsigned dogTexture = loadImageToTexture("res/balrog.png");
+    unsigned dogTexture = loadImageToTexture("res/plutonTrci.png");
+    unsigned dogLayTexture = loadImageToTexture("res/plutonLezi.png");
+    unsigned dogSitTexture = loadImageToTexture("res/plutonSedi.png");
     bindTexture(dogShader, dogTexture);
+    bindTexture(dogShader, dogLayTexture);
+    bindTexture(dogShader, dogSitTexture);
+
 
     //neki lik za sobu
     unsigned margeTexture = loadImageToTexture("res/marge.png");
@@ -354,9 +359,10 @@ int main(void)
     float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
 
     bool reachedFood = false;
-
     while (!glfwWindowShouldClose(window))
     {
+        unsigned currentDogTexture = dogSitTexture;
+
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GL_TRUE);
 
@@ -386,6 +392,7 @@ int main(void)
         {
             if (!isNight && !isEating) {
                 x_move += 0.0001;
+                currentDogTexture = dogTexture;
                 if (x_move > 0.6) {
                     x_move = 0.6;
                 }
@@ -393,13 +400,14 @@ int main(void)
                     dogX += 0.0001;
                     eatDogX += 0.0001;
                 }
-                flip = -1.0;
+                flip = 1.0;
             }
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
             if (!isNight && !isEating) {
                 x_move -= 0.0001;
+                currentDogTexture = dogTexture;
                 if (x_move < -0.45) {
                     x_move = -0.45;
                 }
@@ -407,7 +415,7 @@ int main(void)
                     dogX -= 0.0001;
                     eatDogX -= 0.0001;
                 }
-                flip = 1.0;
+                flip = -1.0;
             }
         }
         if (isEating)
@@ -415,8 +423,9 @@ int main(void)
             if (reachedFood) {
                 if (glfwGetTime() > feedingTime) {
                     if (eatDogX > dogX) {
-                        flip = 1;
+                        flip = -1;
                         x_move -= 0.0001;
+                        currentDogTexture = dogTexture;
                         eatDogX -= 0.0001;
                         if (eatDogX <= dogX) {
                             isEating = false;
@@ -424,29 +433,35 @@ int main(void)
                         }
                     }
                     else if (eatDogX < dogX) {
-                        flip = -1;
+                        flip = 1;
                         x_move += 0.0001;
                         eatDogX += 0.0001;
+                        currentDogTexture = dogTexture;
                         if (eatDogX >= dogX) {
                             isEating = false;
                             reachedFood = false;
                         }
                     }
                 }
+                else {
+                    currentDogTexture = dogSitTexture;
+                }
             }
             else {
                 if (eatDogX > foodX) {
-                    flip = 1;
+                    flip = -1;
                     x_move -= 0.0001;
                     eatDogX -= 0.0001;
+                    currentDogTexture = dogTexture;
                     if (eatDogX < foodX) {
                         reachedFood = true;
                     }
                 }
                 else if (eatDogX < foodX) {
-                    flip = -1;
+                    flip = 1;
                     x_move += 0.0001;
                     eatDogX += 0.0001;
+                    currentDogTexture = dogTexture;
                     if (eatDogX > foodX) {
                         reachedFood = true;
                     }
@@ -544,16 +559,20 @@ int main(void)
 
         drawTree(treeShader, uWhiteLevel, whiteLevel, treeTexture);
 
+        if (isNight && !isEating) {
+            currentDogTexture = dogLayTexture;
+        }
+
         glUseProgram(dogShader);
         glUniform1f(uXpos, x_move);
         glUniform1f(uFlip, flip);
         glBindVertexArray(dogVAO);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, dogTexture);
+        glBindTexture(GL_TEXTURE_2D, currentDogTexture);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        if (isNight) {
+        if (isNight && !isEating) {
             drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
         }
 
@@ -979,8 +998,8 @@ void fillNameVAO() {
 void fillDogVAO() {
     float dog_vertices[] =
     {   //X    Y        S    T 
-        -0.35, -0.07,        1.0, 1.0,//gore desno
-        -0.55, -0.07,        0.0, 1.0, //gore levo
+        -0.35, -0.17,        1.0, 1.0,//gore desno
+        -0.55, -0.17,        0.0, 1.0, //gore levo
         -0.35, -0.53,       1.0, 0.0, //dole desno
         -0.55, -0.53,       0.0, 0.0, //dole levo
     };

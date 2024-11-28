@@ -89,103 +89,95 @@ C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\Yello
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(260,13): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(267,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(268,78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(335,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(336,25): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(339,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(340,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(349,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(350,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(351,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(367,28): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(388,27): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(390,30): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(393,29): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(394,32): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(402,27): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(404,30): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(407,29): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(408,32): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(419,35): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(420,36): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(428,35): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(429,36): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(440,31): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(441,32): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(448,31): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(449,32): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(474,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(481,33): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(491,33): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(510,34): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(517,34): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(605,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(639,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(644,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(670,36): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(671,34): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(722,20): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(722,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(723,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(723,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(723,27): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(723,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(725,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(725,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(737,16): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,16): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(751,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(753,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(755,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(762,13): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(768,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(769,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(782,19): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(786,76): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(786,70): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(794,22): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(794,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(795,15): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(795,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(795,29): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(795,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(796,22): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(796,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(797,15): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(797,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(797,29): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(797,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(823,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(823,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(824,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(824,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(825,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(825,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(826,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(826,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(828,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(828,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(829,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(829,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(830,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(830,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(831,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(831,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(833,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(833,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(834,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(834,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(835,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(835,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(836,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(836,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(838,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(838,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(839,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(839,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(840,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(840,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(841,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(841,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(340,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(341,25): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(344,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(345,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(354,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(355,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(356,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(373,28): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(394,27): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(397,30): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(400,29): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(401,32): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(409,27): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(412,30): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(415,29): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(416,32): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(427,35): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(429,36): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(437,35): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(438,36): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(453,31): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(454,32): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(462,31): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(463,32): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(489,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(496,33): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(506,33): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(525,34): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(532,34): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(624,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(658,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(663,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(689,36): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(690,34): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(741,20): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(741,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(742,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(742,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(742,27): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(742,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(756,16): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(763,16): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(770,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(772,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(774,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(781,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(787,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(788,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(801,19): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(805,76): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(805,70): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(813,22): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(813,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(814,15): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(814,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(814,29): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(814,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(815,22): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(815,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(816,15): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(816,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(816,29): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(816,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(842,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(842,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(843,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(843,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(844,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(844,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(845,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(845,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(847,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(847,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(848,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(848,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(849,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(849,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(850,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(850,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(852,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(852,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(853,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(853,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(854,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(854,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(855,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(855,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(857,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(857,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(858,10): warning C4305: 'initializing': truncation from 'double' to 'float'
@@ -194,14 +186,14 @@ C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\Yello
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(859,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(860,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(860,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(862,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(862,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(863,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(863,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(864,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(864,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(865,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(865,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(876,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(876,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(877,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(877,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(878,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(878,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(879,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(879,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(881,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(881,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(882,10): warning C4305: 'initializing': truncation from 'double' to 'float'
@@ -210,56 +202,64 @@ C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\Yello
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(883,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(884,10): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(884,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(886,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(886,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(887,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(887,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(888,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(888,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(889,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(889,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(891,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(891,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(892,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(892,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(893,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(893,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(894,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(894,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(896,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(896,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(897,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(897,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(898,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(898,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(899,10): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(899,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(913,14): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(914,14): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(917,13): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(923,24): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(925,14): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(931,24): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(933,14): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(946,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(946,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(947,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(948,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(948,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(949,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(964,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(965,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(900,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(900,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(901,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(901,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(902,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(902,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(903,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(903,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(905,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(905,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(906,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(906,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(907,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(907,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(908,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(908,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(910,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(910,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(911,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(911,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(912,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(912,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(913,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(913,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(915,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(915,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(916,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(916,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(917,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(917,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(918,10): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(918,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(932,14): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(933,14): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(936,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(942,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(944,14): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(950,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(952,14): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(965,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(965,16): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(966,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(967,15): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(982,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(982,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(983,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(983,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(984,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(984,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(985,9): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(985,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1011,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1036,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1037,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(967,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(967,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(968,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(983,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(984,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(985,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(986,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1001,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1001,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1002,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1002,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1003,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1003,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1004,9): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1004,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1030,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1055,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(1056,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Sablon.vcxproj -> C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\x64\Debug\Sablon.exe
