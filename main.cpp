@@ -35,7 +35,7 @@ void drawHouse(unsigned int srbShader);
 void drawRoomBg(unsigned int roomBgShader, unsigned int uPulseRoom);
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2);
 void drawSmoke(unsigned int smokeShader, float* smokeTime);
-
+void drawFood(unsigned int srbShader);
 void drawRoom(unsigned int roomShader, unsigned dogTexture);
 void drawWindows(unsigned int windowShader, unsigned int uTransparency, float transparency, unsigned int uDarkeningW);
 void drawFence(unsigned int fenceShader, unsigned int uDarkeningF);
@@ -45,8 +45,7 @@ void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLeve
 void setupBoneCursor(GLFWwindow* window);
 bool isMouseOverGrass(double mouseX, double mouseY);
 void mouseClickCallback(GLFWwindow* window, int button, int action, int mods);
-//void doogFeeding();
-
+void dogFeeding(float positionX, float positionY);
 
 unsigned int bigVAO;
 unsigned int bigVBO;
@@ -70,10 +69,13 @@ unsigned int zzzVAO;
 unsigned int zzzVBO;
 unsigned int smokeVAO;
 unsigned int smokeVBO;
+unsigned int foodVAO;
+unsigned int foodVBO;
 
 bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
 bool isNight = false;
+bool isEating = false;
 float startTimeSun = 0.0;
 float startTimeMoon = 0.0;
 
@@ -84,6 +86,14 @@ float moonY = 0.0;
 
 float dogX = -0.35;
 float dogY = -0.07;
+
+float eatDogX = -0.35;
+float eatDogY = -0.07;
+
+float foodX = 0.0;
+float foodY = -0.53;
+
+float feedingTime = 0;
 
 int main(void)
 {
@@ -156,6 +166,8 @@ int main(void)
     glGenBuffers(1, &zzzVBO);
     glGenVertexArrays(1, &smokeVAO);
     glGenBuffers(1, &smokeVBO);
+    glGenVertexArrays(1, &foodVAO);
+    glGenBuffers(1, &foodVBO);
 
     float gr = 0 / 255.0;
     float gg = 244 / 255.0;
@@ -332,6 +344,8 @@ int main(void)
     float smokeTime = 0.0f;
     float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
 
+    bool reachedFood = false;
+
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -361,28 +375,73 @@ int main(void)
 
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
-            if (!isNight) {
+            if (!isNight && !isEating) {
                 x_move += 0.0001;
                 if (x_move > 0.6) {
                     x_move = 0.6;
                 }
                 else {
                     dogX += 0.0001;
+                    eatDogX += 0.0001;
                 }
                 flip = -1.0;
             }
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
-            if (!isNight) {
+            if (!isNight && !isEating) {
                 x_move -= 0.0001;
                 if (x_move < -0.45) {
                     x_move = -0.45;
                 }
                 else {
                     dogX -= 0.0001;
+                    eatDogX -= 0.0001;
                 }
                 flip = 1.0;
+            }
+        }
+        if (isEating)
+        {
+            if (reachedFood) {
+                if (glfwGetTime() > feedingTime) {
+                    if (eatDogX > dogX) {
+                        flip = 1;
+                        x_move -= 0.0001;
+                        eatDogX -= 0.0001;
+                        if (eatDogX <= dogX) {
+                            isEating = false;
+                            reachedFood = false;
+                        }
+                    }
+                    else if (eatDogX < dogX) {
+                        flip = -1;
+                        x_move += 0.0001;
+                        eatDogX += 0.0001;
+                        if (eatDogX >= dogX) {
+                            isEating = false;
+                            reachedFood = false;
+                        }
+                    }
+                }
+            }
+            else {
+                if (eatDogX > foodX) {
+                    flip = 1;
+                    x_move -= 0.0001;
+                    eatDogX -= 0.0001;
+                    if (eatDogX < foodX) {
+                        reachedFood = true;
+                    }
+                }
+                else if (eatDogX < foodX) {
+                    flip = -1;
+                    x_move += 0.0001;
+                    eatDogX += 0.0001;
+                    if (eatDogX > foodX) {
+                        reachedFood = true;
+                    }
+                }
             }
         }
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
@@ -395,6 +454,7 @@ int main(void)
             isNight = false;
             isRotating = true;
         }
+        
 
         drawBackground(srbShader, uDarkening);
 
@@ -485,6 +545,10 @@ int main(void)
         }
 
         drawSmoke(smokeShader, &smokeTime);
+
+        if (isEating) {
+            drawFood(fenceShader);
+        }
         
         glUseProgram(0);
         glBindVertexArray(0);
@@ -711,6 +775,30 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
     glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, CRES + 2, numInstances);
 }
 
+void drawFood(unsigned int srbShader) {
+    float food_vertices[] =
+    {
+        foodX, foodY + 0.1,           //gore levo
+        foodX + 0.1, foodY + 0.1,     //gore desno
+        foodX, foodY,                 //dole levo
+        foodX + 0.1, foodY,           //dole desno
+    };
+
+    /*std::cout << foodX;
+    std::cout << "\n";
+    std::cout << foodY;*/
+
+    glBindVertexArray(foodVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, foodVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(food_vertices), food_vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glUseProgram(srbShader);
+    glBindVertexArray(foodVAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
 
 void fillWindowVAO() {
     float window_vertices[] =
@@ -899,20 +987,24 @@ void bindTexture(unsigned int shader, unsigned texture) {
     glUseProgram(0);
 }
 
-//void dogFeeding(float postitionX, float positionY) {
-//
-//}
+void dogFeeding(float positionX, float positionY) {
+    if (!isEating && !isNight){
+        foodX = positionX;
+        isEating = true;
+        feedingTime = glfwGetTime() + 6;
+    }
+}
 
 bool isMouseOverGrass(double mouseX, double mouseY) {
     float grassX = -1.0, grassY = -1.0; // Donji levi ugao trave
-    float grassWidth = 2.0f, grassHeight = 1.25f; // Dimenzije trave
+    float grassWidth = 1.15f, grassHeight = 1.25f; // Dimenzije trave
 
     return mouseX >= grassX && mouseX <= grassX + grassWidth &&
         mouseY >= grassY && mouseY <= grassY + grassHeight;
 }
 
 void mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS && !isFoodPresent) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         double mouseX, mouseY;
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
@@ -926,9 +1018,7 @@ void mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
             isFoodPresent = true; // Hrana se sada pojavljuje
             foodPosX = mouseX;
             foodPosY = mouseY;
-
-            std::cout << "Hrana se pojavila na poziciji: " << foodPosX << ", " << foodPosY << std::endl;
-
+            dogFeeding(foodPosX, foodPosY);
         }
     }
 }
