@@ -473,13 +473,17 @@ int main(void)
         }
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
         {
-            isNight = true;
-            isRotating = true;
+            if (!isNight) {
+                isNight = true;
+                isRotating = true;
+            }
         }
         if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
         {
-            isNight = false;
-            isRotating = true;
+            if (isNight) {
+                isNight = false;
+                isRotating = true;
+            }
         }
         
 
