@@ -123,14 +123,22 @@ C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\Yello
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(666,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(692,36): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(693,34): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,20): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,13): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,25): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(744,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(745,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(745,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(745,27): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(745,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(746,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(746,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(746,26): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(746,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(747,14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(747,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(747,26): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(747,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(759,16): warning C4305: '+=': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(766,16): warning C4305: '+=': truncation from 'double' to 'float'
 C:\Users\Aleksa\Documents\Semestar VII\racunarska grafika\zadaci\Project2D\YellowHouse\main.cpp(773,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data

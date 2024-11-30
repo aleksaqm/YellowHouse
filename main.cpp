@@ -741,10 +741,10 @@ void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLeve
 
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2) {
     float zzz_tacke[] = {
-        dogX, dogY + 0.02,           //gore levo
-        dogX + 0.02, dogY + 0.02,     //gore desno
-        dogX, dogY,                 //dole levo
-        dogX + 0.02, dogY,           //dole desno
+        dogX-0.08, dogY - 0.06,           //gore levo
+        dogX - 0.06, dogY - 0.06,     //gore desno
+        dogX - 0.08, dogY-0.08,                 //dole levo
+        dogX - 0.06, dogY-0.08,           //dole desno
     };
     glBindVertexArray(zzzVAO);
     glBindBuffer(GL_ARRAY_BUFFER, zzzVBO);
