@@ -359,6 +359,7 @@ int main(void)
     float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
 
     bool reachedFood = false;
+    bool finishedEating = false;
     while (!glfwWindowShouldClose(window))
     {
         unsigned currentDogTexture = dogSitTexture;
@@ -422,6 +423,7 @@ int main(void)
         {
             if (reachedFood) {
                 if (glfwGetTime() > feedingTime) {
+                    finishedEating = true;
                     if (eatDogX > dogX) {
                         flip = -1;
                         x_move -= 0.0001;
@@ -448,6 +450,7 @@ int main(void)
                 }
             }
             else {
+                finishedEating = false;
                 if (eatDogX- 0.15 > foodX) {
                     flip = -1;
                     x_move -= 0.0001;
@@ -578,7 +581,7 @@ int main(void)
 
         drawSmoke(smokeShader, &smokeTime);
 
-        if (isEating) {
+        if (isEating && !finishedEating) {
             drawFood(foodShader, foodTexture);
         }
         
