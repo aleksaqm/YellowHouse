@@ -448,21 +448,21 @@ int main(void)
                 }
             }
             else {
-                if (eatDogX > foodX) {
+                if (eatDogX- 0.15 > foodX) {
                     flip = -1;
                     x_move -= 0.0001;
                     eatDogX -= 0.0001;
                     currentDogTexture = dogTexture;
-                    if (eatDogX < foodX) {
+                    if (eatDogX - 0.15 < foodX) {
                         reachedFood = true;
                     }
                 }
-                else if (eatDogX < foodX) {
+                else if (eatDogX - 0.15 < foodX) {
                     flip = 1;
                     x_move += 0.0001;
                     eatDogX += 0.0001;
                     currentDogTexture = dogTexture;
-                    if (eatDogX > foodX) {
+                    if (eatDogX - 0.15 > foodX) {
                         reachedFood = true;
                     }
                 }
@@ -810,10 +810,10 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
 void drawFood(unsigned int foodShader, unsigned foodTexture) {
     float food_vertices[] =
     {
-        foodX, foodY + 0.16,         0.0, 1.0,            //gore levo
-        foodX + 0.12, foodY + 0.16,   1.0, 1.0,            //gore desno
-        foodX, foodY - 0.05,               0.0, 0.0,            //dole levo
-        foodX + 0.12, foodY - 0.05,         1.0, 0.0,            //dole desno
+        foodX, foodY + 0.13,         0.0, 1.0,            //gore levo
+        foodX + 0.12, foodY + 0.13,   1.0, 1.0,            //gore desno
+        foodX, foodY - 0.08,               0.0, 0.0,            //dole levo
+        foodX + 0.12, foodY - 0.08,         1.0, 0.0,            //dole desno
     };
 
     /*std::cout << foodX;
