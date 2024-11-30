@@ -280,235 +280,245 @@ int main(void)
 
     bool reachedFood = false;
     bool finishedEating = false;
+
+    double lastFrameTime = 0.0;
+    const double targetFrameRate = 1.0 / 60.0;
+    double currentTime = 0.0;
     while (!glfwWindowShouldClose(window))
     {
-        unsigned currentDogTexture = dogSitTexture;
+        currentTime = glfwGetTime();
+        if (currentTime - lastFrameTime >= targetFrameRate) {
+            lastFrameTime = currentTime;
+            // ovde metis kod
+            unsigned currentDogTexture = dogSitTexture;
 
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, GL_TRUE);
+            if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, GL_TRUE);
 
-        glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
 
-        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
-        {
-            transparency = 0.3;  // Poluprovidno staklo
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-        {
-            transparency = 1.0f;  // Neporvidno staklo
-        }
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        {
-            whiteLevel += 0.0001f; // Povećaj nivo krečenja
-            if (whiteLevel > 0.38f) whiteLevel = 0.38f;
-        }
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        {
-            whiteLevel -= 0.0001f; // Smanji nivo krečenja
-            if (whiteLevel < 0.0f) whiteLevel = 0.0f; // Ograniči ispod stabla
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        {
-            if (!isNight && !isEating) {
-                x_move += 0.0001;
-                currentDogTexture = dogTexture;
-                if (x_move > 0.6) {
-                    x_move = 0.6;
-                }
-                else {
-                    dogX += 0.0001;
-                    eatDogX += 0.0001;
-                }
-                flip = 1.0;
+            if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+            {
+                transparency = 0.3;  // Poluprovidno staklo
             }
-        }
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        {
-            if (!isNight && !isEating) {
-                x_move -= 0.0001;
-                currentDogTexture = dogTexture;
-                if (x_move < -0.45) {
-                    x_move = -0.45;
-                }
-                else {
-                    dogX -= 0.0001;
-                    eatDogX -= 0.0001;
-                }
-                flip = -1.0;
+
+            if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+            {
+                transparency = 1.0f;  // Neporvidno staklo
             }
-        }
-        if (isEating)
-        {
-            if (reachedFood) {
-                if (glfwGetTime() > feedingTime) {
-                    finishedEating = true;
-                    if (eatDogX > dogX) {
-                        flip = -1;
-                        x_move -= 0.0001;
-                        currentDogTexture = dogTexture;
-                        eatDogX -= 0.0001;
-                        if (eatDogX <= dogX) {
-                            isEating = false;
-                            reachedFood = false;
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            {
+                whiteLevel += 0.003f; // Povećaj nivo krečenja
+                if (whiteLevel > 0.38f) whiteLevel = 0.38f;
+            }
+            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            {
+                whiteLevel -= 0.003f; // Smanji nivo krečenja
+                if (whiteLevel < 0.0f) whiteLevel = 0.0f; // Ograniči ispod stabla
+            }
+
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            {
+                if (!isNight && !isEating) {
+                    x_move += 0.003;
+                    currentDogTexture = dogTexture;
+                    if (x_move > 0.6) {
+                        x_move = 0.6;
+                    }
+                    else {
+                        dogX += 0.003;
+                        eatDogX += 0.003;
+                    }
+                    flip = 1.0;
+                }
+            }
+            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            {
+                if (!isNight && !isEating) {
+                    x_move -= 0.003;
+                    currentDogTexture = dogTexture;
+                    if (x_move < -0.45) {
+                        x_move = -0.45;
+                    }
+                    else {
+                        dogX -= 0.003;
+                        eatDogX -= 0.003;
+                    }
+                    flip = -1.0;
+                }
+            }
+            if (isEating)
+            {
+                if (reachedFood) {
+                    if (glfwGetTime() > feedingTime) {
+                        finishedEating = true;
+                        if (eatDogX > dogX) {
+                            flip = -1;
+                            x_move -= 0.003;
+                            currentDogTexture = dogTexture;
+                            eatDogX -= 0.003;
+                            if (eatDogX <= dogX) {
+                                isEating = false;
+                                reachedFood = false;
+                            }
+                        }
+                        else if (eatDogX < dogX) {
+                            flip = 1;
+                            x_move += 0.003;
+                            eatDogX += 0.003;
+                            currentDogTexture = dogTexture;
+                            if (eatDogX >= dogX) {
+                                isEating = false;
+                                reachedFood = false;
+                            }
                         }
                     }
-                    else if (eatDogX < dogX) {
-                        flip = 1;
-                        x_move += 0.0001;
-                        eatDogX += 0.0001;
-                        currentDogTexture = dogTexture;
-                        if (eatDogX >= dogX) {
-                            isEating = false;
-                            reachedFood = false;
-                        }
+                    else {
+                        currentDogTexture = dogSitTexture;
                     }
                 }
                 else {
-                    currentDogTexture = dogSitTexture;
-                }
-            }
-            else {
-                finishedEating = false;
-                if (eatDogX- 0.15 > foodX) {
-                    flip = -1;
-                    x_move -= 0.0001;
-                    eatDogX -= 0.0001;
-                    currentDogTexture = dogTexture;
-                    if (eatDogX - 0.15 < foodX) {
-                        reachedFood = true;
-                    }
-                }
-                else if (eatDogX - 0.15 < foodX) {
-                    flip = 1;
-                    x_move += 0.0001;
-                    eatDogX += 0.0001;
-                    currentDogTexture = dogTexture;
+                    finishedEating = false;
                     if (eatDogX - 0.15 > foodX) {
-                        reachedFood = true;
+                        flip = -1;
+                        x_move -= 0.003;
+                        eatDogX -= 0.003;
+                        currentDogTexture = dogTexture;
+                        if (eatDogX - 0.15 < foodX) {
+                            reachedFood = true;
+                        }
+                    }
+                    else if (eatDogX - 0.15 < foodX) {
+                        flip = 1;
+                        x_move += 0.003;
+                        eatDogX += 0.003;
+                        currentDogTexture = dogTexture;
+                        if (eatDogX - 0.15 > foodX) {
+                            reachedFood = true;
+                        }
                     }
                 }
             }
-        }
-        
-        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-        {
-            if (!isNight) {
-                isNight = true;
-                isRotating = true;
-            }
-        }
-        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-        {
-            if (isNight) {
-                isNight = false;
-                isRotating = true;
-            }
-        }
-        
 
-        drawBackground(srbShader, uDarkening);
-
-        glUseProgram(japShader);
-        glBindVertexArray(sunVAO);
-        float minScale = 0.3f; // Minimalna vrednost
-        float maxScale = 0.5f; // Maksimalna vrednost
-        float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
-        glUniform1f(uPulse, oscillation);
-        glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * sin(startTimeSun));
-        sunX = rrr * cos(startTimeSun);
-        sunY = rrr * sin(startTimeSun);
-        if (isRotating) {
-            if (isNight) {
-                startTimeSun += 0.001;
-                sunX = rrr * cos(startTimeSun);
-                sunY = rrr * sin(startTimeSun);
-
-                glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
-                if (sunX < -0.5 && sunY < -0.7) {
-                    isRotating = false;
+            if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+            {
+                if (!isNight) {
+                    isNight = true;
+                    isRotating = true;
                 }
             }
-            else {
-                startTimeSun += 0.001;
-                sunX = rrr * cos(startTimeSun);
-                sunY = rrr * sin(startTimeSun);
-
-                glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
-                if (sunX > -0.3 && sunY > 0.8) {
-                    isRotating = false;
+            if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+            {
+                if (isNight) {
+                    isNight = false;
+                    isRotating = true;
                 }
             }
-        }
-        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
 
-        glUseProgram(moonShader);
-        glBindVertexArray(sunVAO);
-        glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * sin(startTimeMoon));
-        moonX = rrr * cos(startTimeMoon);
-        moonY = rrr * sin(startTimeMoon);
-        if (isRotating) {
+
+            drawBackground(srbShader, uDarkening);
+
+            glUseProgram(japShader);
+            glBindVertexArray(sunVAO);
+            float minScale = 0.3f; // Minimalna vrednost
+            float maxScale = 0.5f; // Maksimalna vrednost
+            float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
+            glUniform1f(uPulse, oscillation);
+            glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * sin(startTimeSun));
+            sunX = rrr * cos(startTimeSun);
+            sunY = rrr * sin(startTimeSun);
+            if (isRotating) {
+                if (isNight) {
+                    startTimeSun += 0.03;
+                    sunX = rrr * cos(startTimeSun);
+                    sunY = rrr * sin(startTimeSun);
+
+                    glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
+                    if (sunX < -0.5 && sunY < -0.7) {
+                        isRotating = false;
+                    }
+                }
+                else {
+                    startTimeSun += 0.03;
+                    sunX = rrr * cos(startTimeSun);
+                    sunY = rrr * sin(startTimeSun);
+
+                    glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * (sin(startTimeSun)));
+                    if (sunX > -0.3 && sunY > 0.8) {
+                        isRotating = false;
+                    }
+                }
+            }
+            glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+            glUseProgram(moonShader);
+            glBindVertexArray(sunVAO);
+            glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * sin(startTimeMoon));
+            moonX = rrr * cos(startTimeMoon);
+            moonY = rrr * sin(startTimeMoon);
+            if (isRotating) {
+                if (isNight) {
+                    startTimeMoon += 0.03;
+                    moonX = rrr * cos(startTimeMoon);
+                    moonY = rrr * sin(startTimeMoon);
+
+                    glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+                }
+                else {
+                    startTimeMoon += 0.03;
+                    moonX = rrr * cos(startTimeMoon);
+                    moonY = rrr * sin(startTimeMoon);
+
+                    glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+                }
+            }
+            glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
+
+
+            drawGrass(srbShader);
+
+            drawHouse(srbShader);
+
+            drawRoomBg(roomBgShader, uPulseRoom);
+
             if (isNight) {
-                startTimeMoon += 0.001;
-                moonX = rrr * cos(startTimeMoon);
-                moonY = rrr * sin(startTimeMoon);
-
-                glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+                drawRoom(roomShader, homerTexture);
             }
             else {
-                startTimeMoon += 0.001;
-                moonX = rrr * cos(startTimeMoon);
-                moonY = rrr * sin(startTimeMoon);
-
-                glUniform2f(uPosLocSun, rrr * cos(startTimeMoon), rrr * (sin(startTimeMoon)));
+                drawRoom(roomShader, margeTexture);
             }
-        }
-        glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(circle) / (2 * sizeof(float)));
 
+            drawWindows(windowShader, uTransparency, transparency, uDarkeningW);
 
-        drawGrass(srbShader);
+            drawFence(fenceShader, uDarkeningF);
 
-        drawHouse(srbShader);
+            drawName(nameShader, nameTexture);
 
-        drawRoomBg(roomBgShader, uPulseRoom);
+            drawTree(treeShader, uWhiteLevel, whiteLevel, treeTexture);
 
-        if (isNight) {
-            drawRoom(roomShader, homerTexture);
-        }
-        else {
-            drawRoom(roomShader, margeTexture);
-        }
+            if (isNight && !isEating) {
+                currentDogTexture = dogLayTexture;
+            }
 
-        drawWindows(windowShader, uTransparency, transparency, uDarkeningW);
+            drawDog(dogShader, uXpos, x_move, flip, uFlip, currentDogTexture);
 
-        drawFence(fenceShader, uDarkeningF);
+            if (isNight && !isEating) {
+                drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
+            }
 
-        drawName(nameShader, nameTexture);
+            drawSmoke(smokeShader, &smokeTime);
 
-        drawTree(treeShader, uWhiteLevel, whiteLevel, treeTexture);
+            if (isEating && !finishedEating) {
+                drawFood(foodShader, foodTexture);
+            }
 
-        if (isNight && !isEating) {
-            currentDogTexture = dogLayTexture;
-        }
+            glUseProgram(0);
+            glBindVertexArray(0);
 
-        drawDog(dogShader, uXpos, x_move, flip, uFlip, currentDogTexture);
-
-        if (isNight && !isEating) {
-            drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
-        }
-
-        drawSmoke(smokeShader, &smokeTime);
-
-        if (isEating && !finishedEating) {
-            drawFood(foodShader, foodTexture);
+            glfwSwapBuffers(window);
+            glfwPollEvents();
         }
         
-        glUseProgram(0);
-        glBindVertexArray(0);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
     }
     glDeleteTextures(1, &treeTexture);
     glDeleteTextures(1, &dogTexture);
@@ -686,14 +696,14 @@ void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, f
     //time += 0.0001;
     glBindVertexArray(zzzVAO);
     if (*time1 <= glfwGetTime()) {
-        *t1 += 0.001;
+        *t1 += 0.02;
         glUniform1f(glGetUniformLocation(zzzShader, "uTime"), *t1);
         glLineWidth(2);
         glDrawArrays(GL_LINE_STRIP, 0, 4);
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
     if (*time2 <= glfwGetTime()) {
-        *t2 += 0.001;
+        *t2 += 0.02;
         glUniform1f(glGetUniformLocation(zzzShader, "uTime"), *t2);
         glLineWidth(2);
         glDrawArrays(GL_LINE_STRIP, 0, 4);
@@ -731,7 +741,7 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
 
     glUseProgram(smokeShader);
     glBindVertexArray(smokeVAO);
-    *smokeTime += 0.001;
+    *smokeTime += 0.02;
 
     glUniform1f(glGetUniformLocation(smokeShader, "uTime"), *smokeTime);
     glUniform1f(glGetUniformLocation(smokeShader, "uParticleLife"), particleLife);
