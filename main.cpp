@@ -78,6 +78,7 @@ bool isFoodPresent = false; // Indikator da li je hrana na sceni
 float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
 bool isNight = false;
 bool isEating = false;
+bool foodWaiting = false;
 float startTimeSun = 0.0;
 float startTimeMoon = 0.0;
 
@@ -347,6 +348,10 @@ int main(void)
                     flip = -1.0;
                 }
             }
+            if (!isNight && foodWaiting) {
+                isEating = true;
+                feedingTime = glfwGetTime() + 7;
+            }
             if (isEating)
             {
                 if (reachedFood) {
@@ -375,6 +380,7 @@ int main(void)
                     }
                     else {
                         currentDogTexture = dogSitTexture;
+                        foodWaiting = false;
                     }
                 }
                 else {
@@ -508,7 +514,7 @@ int main(void)
 
             drawSmoke(smokeShader, &smokeTime);
 
-            if (isEating && !finishedEating) {
+            if ((isEating && !finishedEating) || foodWaiting) {
                 drawFood(foodShader, foodTexture);
             }
 
@@ -522,26 +528,51 @@ int main(void)
     }
     glDeleteTextures(1, &treeTexture);
     glDeleteTextures(1, &dogTexture);
+    glDeleteTextures(1, &dogLayTexture);
+    glDeleteTextures(1, &dogSitTexture);
     glDeleteTextures(1, &nameTexture);
+    glDeleteTextures(1, &margeTexture);
+    glDeleteTextures(1, &homerTexture);
+    glDeleteTextures(1, &foodTexture);
 
     glDeleteBuffers(1, &bigVBO);
     glDeleteVertexArrays(1, &bigVAO);
+    glDeleteBuffers(1, &sunVBO);
+    glDeleteVertexArrays(1, &sunVAO);
     glDeleteBuffers(1, &fenceVBO);
     glDeleteVertexArrays(1, &fenceVAO);
     glDeleteBuffers(1, &treeVBO);
     glDeleteVertexArrays(1, &treeVAO);
-    glDeleteBuffers(1, &sunVBO);
-    glDeleteVertexArrays(1, &sunVAO);
     glDeleteBuffers(1, &dogVBO);
     glDeleteVertexArrays(1, &dogVAO);
     glDeleteBuffers(1, &windowVBO);
     glDeleteVertexArrays(1, &windowVAO);
+    glDeleteBuffers(1, &roomVBO);
+    glDeleteVertexArrays(1, &roomVAO);
+    glDeleteBuffers(1, &nameVBO);
+    glDeleteVertexArrays(1, &nameVAO);
+    glDeleteBuffers(1, &roomBgVBO);
+    glDeleteVertexArrays(1, &roomBgVAO);
+    glDeleteBuffers(1, &zzzVBO);
+    glDeleteVertexArrays(1, &zzzVAO);
+    glDeleteBuffers(1, &smokeVBO);
+    glDeleteVertexArrays(1, &smokeVAO);
+    glDeleteBuffers(1, &foodVBO);
+    glDeleteVertexArrays(1, &foodVAO);
+
     glDeleteProgram(srbShader);
+    glDeleteProgram(windowShader);
     glDeleteProgram(japShader);
     glDeleteProgram(fenceShader);
     glDeleteProgram(treeShader);
     glDeleteProgram(dogShader);
-    glDeleteProgram(windowShader);
+    glDeleteProgram(roomShader);
+    glDeleteProgram(nameShader);
+    glDeleteProgram(moonShader);
+    glDeleteProgram(roomBgShader);
+    glDeleteProgram(zzzShader);
+    glDeleteProgram(smokeShader);
+    glDeleteProgram(foodShader);
 
     glfwTerminate();
     return 0;
@@ -1050,10 +1081,16 @@ void bindTexture(unsigned int shader, unsigned texture) {
 }
 
 void dogFeeding(float positionX, float positionY) {
-    if (!isEating && !isNight){
-        foodX = positionX;
-        isEating = true;
-        feedingTime = glfwGetTime() + 6;
+    if (!isEating){
+        if (!isNight) {
+            foodX = positionX;
+            isEating = true;
+            feedingTime = glfwGetTime() + 7;
+        }
+        else if (!foodWaiting) {
+            foodX = positionX;
+            foodWaiting = true;
+        }
     }
 }
 
