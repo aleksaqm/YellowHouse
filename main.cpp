@@ -22,6 +22,7 @@ unsigned int compileShader(GLenum type, const char* source);
 unsigned int createShader(const char* vsSource, const char* fsSource);
 static unsigned loadImageToTexture(const char* filePath);
 void bindTexture(unsigned int shader, unsigned texture);
+void fillBaseVAO();
 void fillDogVAO();
 void fillTreeVAO();
 void fillFenceVAO();
@@ -41,6 +42,7 @@ void drawWindows(unsigned int windowShader, unsigned int uTransparency, float tr
 void drawFence(unsigned int fenceShader, unsigned int uDarkeningF);
 void drawName(unsigned int nameShader, unsigned nameTexture);
 void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLevel, unsigned treeTexture);
+void drawDog(unsigned int dogShader, unsigned uXpos, float x_move, float flip, unsigned uFlip, unsigned currentDogTexture);
 
 void setupBoneCursor(GLFWwindow* window);
 bool isMouseOverGrass(double mouseX, double mouseY);
@@ -170,89 +172,7 @@ int main(void)
     glGenVertexArrays(1, &foodVAO);
     glGenBuffers(1, &foodVBO);
 
-    float gr = 0 / 255.0;
-    float gg = 244 / 255.0;
-    float gb = 23 / 255.0;
-
-    float br = 144 / 255.0;
-    float bg = 213 / 255.0;
-    float bb = 255 / 255.0;
-
-    float yr = 247 / 255.0;
-    float yg = 216 / 255.0;
-    float yb = 66 / 255.0;
-
-    float bwr = 110 / 255.0;
-    float bwg = 38 / 255.0;
-    float bwb = 14 / 255.0;
-
-    float rr = 174 / 255.0;
-    float rg = 44 / 255.0;
-    float rb = 35 / 255.0;
-
-    float vertices[] =
-    {
-         -1.0, 0.25,    br, bg, bb,
-         1.0, 0.25,     br, bg, bb,
-         -1.0, 1.0,     br, bg, bb,
-         1.0, 1.0,      br, bg, bb,
-
-         -1.0, 0.25,    gr, gg, gb,
-         1.0, 0.25,     gr, gg, gb,
-         -1.0, -1.0,    gr, gg, gb,
-         1.0, -1.0,     gr, gg, gb,
-
-         0.25, -0.60,   yr, yg, yb,
-         0.75, -0.60,   yr, yg, yb,
-         0.25, 0.30,    yr, yg, yb,
-         0.75, 0.30,    yr, yg, yb,
-
-         0.44, -0.60,   bwr, bwg, bwb,
-         0.56, -0.60,   bwr, bwg, bwb,
-         0.44, -0.35,   bwr, bwg, bwb,
-         0.56, -0.35,   bwr, bwg, bwb,
-
-         0.28, -0.28,   0, 0, 0,
-         0.42, -0.28,   0, 0, 0,
-         0.28, -0.08,   0, 0, 0,
-         0.42, -0.08,   0, 0, 0,
-
-         0.58, -0.28,   0, 0, 0,
-         0.72, -0.28,   0, 0, 0,
-         0.58, -0.08,   0, 0, 0,
-         0.72, -0.08,   0, 0, 0,
-
-         0.28, 0.02,   0, 0, 0,
-         0.42, 0.02,   0, 0, 0,
-         0.28, 0.22,   0, 0, 0,
-         0.42, 0.22,   0, 0, 0,
-
-         0.58, 0.02,   0, 0, 0,
-         0.72, 0.02,   0, 0, 0,
-         0.58, 0.22,   0, 0, 0,
-         0.72, 0.22,   0, 0, 0,
-
-         0.20, 0.30,   rr, rg, rb,
-         0.80, 0.30,   rr, rg, rb,
-         0.50, 0.70,   rr, rg, rb,
-
-         0.62, 0.57,    0.32, 0.32, 0.32,
-         0.62, 0.4,    0.32, 0.32, 0.32,
-         0.7, 0.57,     0.32, 0.32, 0.32,
-         0.7, 0.4,     0.32, 0.32, 0.32,
-    };
-
-    
-
-
-    glBindVertexArray(bigVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, bigVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    fillBaseVAO();
     
     float aspectRatio = (float)wWidth / wHeight;
 
@@ -471,6 +391,7 @@ int main(void)
                 }
             }
         }
+        
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
         {
             if (!isNight) {
@@ -551,6 +472,7 @@ int main(void)
         drawHouse(srbShader);
 
         drawRoomBg(roomBgShader, uPulseRoom);
+
         if (isNight) {
             drawRoom(roomShader, homerTexture);
         }
@@ -570,14 +492,7 @@ int main(void)
             currentDogTexture = dogLayTexture;
         }
 
-        glUseProgram(dogShader);
-        glUniform1f(uXpos, x_move);
-        glUniform1f(uFlip, flip);
-        glBindVertexArray(dogVAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, currentDogTexture);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        drawDog(dogShader, uXpos, x_move, flip, uFlip, currentDogTexture);
 
         if (isNight && !isEating) {
             drawZZZ(zzzShader, &time1, &time2, &time3, &t1, &t2);
@@ -743,6 +658,17 @@ void drawTree(unsigned int treeShader, unsigned int uWhiteLevel, float whiteLeve
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void drawDog(unsigned int dogShader, unsigned uXpos, float x_move, float flip, unsigned uFlip, unsigned currentDogTexture) {
+    glUseProgram(dogShader);
+    glUniform1f(uXpos, x_move);
+    glUniform1f(uFlip, flip);
+    glBindVertexArray(dogVAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, currentDogTexture);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2) {
     float zzz_tacke[] = {
         dogX-0.08, dogY - 0.06,           //gore levo
@@ -841,6 +767,89 @@ void drawFood(unsigned int foodShader, unsigned foodTexture) {
     glBindTexture(GL_TEXTURE_2D, foodTexture);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void fillBaseVAO() {
+    float gr = 0 / 255.0;
+    float gg = 244 / 255.0;
+    float gb = 23 / 255.0;
+
+    float br = 144 / 255.0;
+    float bg = 213 / 255.0;
+    float bb = 255 / 255.0;
+
+    float yr = 247 / 255.0;
+    float yg = 216 / 255.0;
+    float yb = 66 / 255.0;
+
+    float bwr = 110 / 255.0;
+    float bwg = 38 / 255.0;
+    float bwb = 14 / 255.0;
+
+    float rr = 174 / 255.0;
+    float rg = 44 / 255.0;
+    float rb = 35 / 255.0;
+
+    float vertices[] =
+    {
+         -1.0, 0.25,    br, bg, bb,
+         1.0, 0.25,     br, bg, bb,
+         -1.0, 1.0,     br, bg, bb,
+         1.0, 1.0,      br, bg, bb,
+
+         -1.0, 0.25,    gr, gg, gb,
+         1.0, 0.25,     gr, gg, gb,
+         -1.0, -1.0,    gr, gg, gb,
+         1.0, -1.0,     gr, gg, gb,
+
+         0.25, -0.60,   yr, yg, yb,
+         0.75, -0.60,   yr, yg, yb,
+         0.25, 0.30,    yr, yg, yb,
+         0.75, 0.30,    yr, yg, yb,
+
+         0.44, -0.60,   bwr, bwg, bwb,
+         0.56, -0.60,   bwr, bwg, bwb,
+         0.44, -0.35,   bwr, bwg, bwb,
+         0.56, -0.35,   bwr, bwg, bwb,
+
+         0.28, -0.28,   0, 0, 0,
+         0.42, -0.28,   0, 0, 0,
+         0.28, -0.08,   0, 0, 0,
+         0.42, -0.08,   0, 0, 0,
+
+         0.58, -0.28,   0, 0, 0,
+         0.72, -0.28,   0, 0, 0,
+         0.58, -0.08,   0, 0, 0,
+         0.72, -0.08,   0, 0, 0,
+
+         0.28, 0.02,   0, 0, 0,
+         0.42, 0.02,   0, 0, 0,
+         0.28, 0.22,   0, 0, 0,
+         0.42, 0.22,   0, 0, 0,
+
+         0.58, 0.02,   0, 0, 0,
+         0.72, 0.02,   0, 0, 0,
+         0.58, 0.22,   0, 0, 0,
+         0.72, 0.22,   0, 0, 0,
+
+         0.20, 0.30,   rr, rg, rb,
+         0.80, 0.30,   rr, rg, rb,
+         0.50, 0.70,   rr, rg, rb,
+
+         0.62, 0.57,    0.32, 0.32, 0.32,
+         0.62, 0.4,    0.32, 0.32, 0.32,
+         0.7, 0.57,     0.32, 0.32, 0.32,
+         0.7, 0.4,     0.32, 0.32, 0.32,
+    };
+
+    glBindVertexArray(bigVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, bigVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 }
 
 void fillWindowVAO() {
