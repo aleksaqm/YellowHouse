@@ -74,8 +74,8 @@ unsigned int smokeVBO;
 unsigned int foodVAO;
 unsigned int foodVBO;
 
-bool isFoodPresent = false; // Indikator da li je hrana na sceni
-float foodPosX = 0.0f, foodPosY = 0.0f; // Pozicija hrane (ako je postavljena)
+bool isFoodPresent = false;                 // Da li je hrana na sceni
+float foodPosX = 0.0f, foodPosY = 0.0f;     // Pozicija hrane
 bool isNight = false;
 bool isEating = false;
 bool foodWaiting = false;
@@ -206,7 +206,7 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    //Tekstura
+    //Teksture
     unsigned treeTexture = loadImageToTexture("res/sljiva.png");
     bindTexture(treeShader, treeTexture);
 
@@ -217,8 +217,6 @@ int main(void)
     bindTexture(dogShader, dogLayTexture);
     bindTexture(dogShader, dogSitTexture);
 
-
-    //neki lik za sobu
     unsigned margeTexture = loadImageToTexture("res/marge.png");
     unsigned homerTexture = loadImageToTexture("res/homer.png");
 
@@ -258,8 +256,8 @@ int main(void)
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    float rrr = 0.9;      //Poluprecnik kruznice po kojoj se trougao krece, mora biti manji od najmanje apsolutne vrednosti y koordinate temena
-    float rotationSpeed = 0.8; //brzina rotacije trouglova
+    float rrr = 0.9;                                //Poluprecnik kruznice po kojoj se sunce i mesec krecu
+    float rotationSpeed = 0.8;                      //brzina rotacije sunca/meseca
     bool first = true;
     glClearColor(1.0, 1.0, 1.0, 1.0);
     startTimeSun = glfwGetTime() + 0.5;
@@ -277,7 +275,7 @@ int main(void)
     float time3 = glfwGetTime() + 4;
 
     float smokeTime = 0.0f;
-    float particleLife = 3.0f; // Svaka čestica živi 3 sekunde
+    float particleLife = 3.0f;                      // Svaka čestica živi 3 sekunde
 
     bool reachedFood = false;
     bool finishedEating = false;
@@ -426,8 +424,8 @@ int main(void)
 
             glUseProgram(japShader);
             glBindVertexArray(sunVAO);
-            float minScale = 0.3f; // Minimalna vrednost
-            float maxScale = 0.5f; // Maksimalna vrednost
+            float minScale = 0.3f;
+            float maxScale = 0.5f;
             float oscillation = minScale + (maxScale - minScale) * (0.5f * (1.0f + sin(glfwGetTime())));
             glUniform1f(uPulse, oscillation);
             glUniform2f(uPosLocSun, rrr * cos(startTimeSun), rrr * sin(startTimeSun));
@@ -712,10 +710,10 @@ void drawDog(unsigned int dogShader, unsigned uXpos, float x_move, float flip, u
 
 void drawZZZ(unsigned int zzzShader, float* time1, float* time2, float* time3, float* t1, float* t2) {
     float zzz_tacke[] = {
-        dogX-0.08, dogY - 0.06,           //gore levo
-        dogX - 0.06, dogY - 0.06,     //gore desno
-        dogX - 0.08, dogY-0.08,                 //dole levo
-        dogX - 0.06, dogY-0.08,           //dole desno
+        dogX-0.08, dogY - 0.06,             //gore levo
+        dogX - 0.06, dogY - 0.06,           //gore desno
+        dogX - 0.08, dogY-0.08,             //dole levo
+        dogX - 0.06, dogY-0.08,             //dole desno
     };
     glBindVertexArray(zzzVAO);
     glBindBuffer(GL_ARRAY_BUFFER, zzzVBO);
@@ -784,10 +782,10 @@ void drawSmoke(unsigned int smokeShader, float* smokeTime) {
 void drawFood(unsigned int foodShader, unsigned foodTexture) {
     float food_vertices[] =
     {
-        foodX, foodY + 0.13,         0.0, 1.0,            //gore levo
-        foodX + 0.12, foodY + 0.13,   1.0, 1.0,            //gore desno
+        foodX, foodY + 0.13,         0.0, 1.0,                  //gore levo
+        foodX + 0.12, foodY + 0.13,   1.0, 1.0,                 //gore desno
         foodX, foodY - 0.08,               0.0, 0.0,            //dole levo
-        foodX + 0.12, foodY - 0.08,         1.0, 0.0,            //dole desno
+        foodX + 0.12, foodY - 0.08,         1.0, 0.0,           //dole desno
     };
 
     /*std::cout << foodX;
@@ -1036,7 +1034,7 @@ void fillTreeVAO() {
 
 void fillNameVAO() {
     float name_vertices[] =
-    {   //X    Y        S    T 
+    {   //X    Y              S    T 
         -1.0, -0.72,         0.0, 1.0,//gore levo
         -0.5, -0.72,         1.0, 1.0, //gore desno
         -1.0, -0.83,         0.0, 0.0, //dole levo
@@ -1054,7 +1052,7 @@ void fillNameVAO() {
 
 void fillDogVAO() {
     float dog_vertices[] =
-    {   //X    Y        S    T 
+    {   //X    Y            S    T 
         -0.35, -0.17,        1.0, 1.0,//gore desno
         -0.55, -0.17,        0.0, 1.0, //gore levo
         -0.35, -0.53,       1.0, 0.0, //dole desno
@@ -1071,12 +1069,12 @@ void fillDogVAO() {
 }
 
 void bindTexture(unsigned int shader, unsigned texture) {
-    glBindTexture(GL_TEXTURE_2D, texture); //Podesavamo teksturu
-    glGenerateMipmap(GL_TEXTURE_2D); //Generisemo mipmape 
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(texture);
     unsigned uTexLoc2 = glGetUniformLocation(shader, "uTex");
-    glUniform1i(uTexLoc2, 0); // Indeks teksturne jedinice (sa koje teksture ce se citati boje)
+    glUniform1i(uTexLoc2, 0);
     glUseProgram(0);
 }
 
@@ -1095,8 +1093,8 @@ void dogFeeding(float positionX, float positionY) {
 }
 
 bool isMouseOverGrass(double mouseX, double mouseY) {
-    float grassX = -1.0, grassY = -1.0; // Donji levi ugao trave
-    float grassWidth = 1.15f, grassHeight = 1.25f; // Dimenzije trave
+    float grassX = -1.0, grassY = -1.0;             // Donji levi ugao trave
+    float grassWidth = 1.15f, grassHeight = 1.25f;  // Dimenzije trave
 
     return mouseX >= grassX && mouseX <= grassX + grassWidth &&
         mouseY >= grassY && mouseY <= grassY + grassHeight;
@@ -1114,7 +1112,7 @@ void mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
         mouseY = -((mouseY / windowHeight) * 2.0 - 1.0); // Inverzija osi Y
 
         if (isMouseOverGrass(mouseX, mouseY)) {
-            isFoodPresent = true; // Hrana se sada pojavljujeoopo
+            isFoodPresent = true; // Hrana se sada pojavljuje
             foodPosX = mouseX;
             foodPosY = mouseY;
             dogFeeding(foodPosX, foodPosY);
@@ -1262,7 +1260,7 @@ static unsigned loadImageToTexture(const char* filePath) {
 
 void setupBoneCursor(GLFWwindow* window) {
     int width, height, channels;
-    unsigned char* data = stbi_load("res/bone.png", &width, &height, &channels, 4); // učitaj sliku kosti
+    unsigned char* data = stbi_load("res/bone.png", &width, &height, &channels, 4);
 
     if (data) {
         GLFWimage cursorImage;
@@ -1270,7 +1268,7 @@ void setupBoneCursor(GLFWwindow* window) {
         cursorImage.height = height;
         cursorImage.pixels = data;
 
-        boneCursor = glfwCreateCursor(&cursorImage, 0, 0); // postavi gornji levi ugao slike kao žarišnu tačku
+        boneCursor = glfwCreateCursor(&cursorImage, 0, 0);
         glfwSetCursor(window, boneCursor);
 
         stbi_image_free(data);
